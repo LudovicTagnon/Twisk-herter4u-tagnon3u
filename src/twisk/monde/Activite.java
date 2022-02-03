@@ -2,7 +2,7 @@ package twisk.monde;
 
 public class Activite extends Etape{
 
-    protected int tempps;
+    protected int temps;
     protected int ecartTemps;
 
     public Activite(String nom) {
@@ -10,9 +10,9 @@ public class Activite extends Etape{
     }
 
 
-    public Activite(String nom, int tempps, int ecartTemps) {
+    public Activite(String nom, int temps, int ecartTemps) {
         super(nom);
-        this.tempps = tempps;
+        this.temps = temps;
         this.ecartTemps = ecartTemps;
     }
 
@@ -21,5 +21,15 @@ public class Activite extends Etape{
 
     public boolean estUneActivite(){
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Activite{" +
+                "temps=" + temps +
+                ", ecartTemps=" + ecartTemps +
+                ", nom='" + nom + '\'' +
+                ", gestSucc=" + gestSucc +
+                '}';
     }
 }

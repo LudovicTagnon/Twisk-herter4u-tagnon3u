@@ -31,4 +31,12 @@ public abstract class Etape implements Iterable<Etape>{
     public Iterator<Etape> iterator() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Etape{" +
+                "nom='" + nom + '\'' +
+                ", gestSucc=" + gestSucc +
+                '}';
+    }
 }
