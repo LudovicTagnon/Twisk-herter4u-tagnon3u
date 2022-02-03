@@ -11,12 +11,10 @@ public abstract class Etape implements Iterable<Etape>{
         this.nom = nom;
     }
 
-    protected Etape() {
-    }
 
 
     public void ajouterSuccesseur(Etape ... etapes){
-
+        this.gestSucc.ajouter(etapes);
     }
 
     public boolean estUneActivite(){
@@ -29,7 +27,7 @@ public abstract class Etape implements Iterable<Etape>{
 
     @Override
     public Iterator<Etape> iterator() {
-        return null;
+        return this.iterator();
     }
 
     @Override

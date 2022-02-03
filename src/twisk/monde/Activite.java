@@ -16,11 +16,8 @@ public class Activite extends Etape{
         this.ecartTemps = ecartTemps;
     }
 
-    public Activite() {
-    }
-
     public boolean estUneActivite(){
-        return false;
+        return true;
     }
 
     @Override
