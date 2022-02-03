@@ -8,15 +8,17 @@ public class GestionnaireEtapes implements Iterable<Etape>{
     private ArrayList<Etape> etapes;
 
     public GestionnaireEtapes(){
-
+        this.etapes = new ArrayList<Etape>(10);
     }
 
     public void ajouter(Etape ... etapes){
-
+        for (int i = 0; i < etapes.length; i++) {
+            this.etapes.add(etapes[i]);
+        }
     }
 
     public int nbEtapes(){
-        return 0;
+        return this.etapes.size();
     }
 
 
@@ -24,7 +26,7 @@ public class GestionnaireEtapes implements Iterable<Etape>{
 
     @Override
     public Iterator<Etape> iterator() {
-        return null;
+        return this.etapes.iterator();
     }
 
     @Override
