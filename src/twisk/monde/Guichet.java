@@ -17,13 +17,13 @@ public class Guichet extends Etape{
         return false;
     }
 
+
     @Override
     public String toString() {
         return "Guichet{" +
-                "nom='" + nom + '\'' +
+                "nbJetons=" + nbJetons +
+                ", nom='" + nom + '\'' +
                 ", gestSucc=" + gestSucc +
                 '}';
     }
-
-
 }
