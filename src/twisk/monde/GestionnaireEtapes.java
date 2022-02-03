@@ -21,9 +21,6 @@ public class GestionnaireEtapes implements Iterable<Etape>{
         return this.etapes.size();
     }
 
-
-
-
     @Override
     public Iterator<Etape> iterator() {
         return this.etapes.iterator();

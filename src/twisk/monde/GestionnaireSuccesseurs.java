@@ -12,8 +12,8 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
     }
 
     public void ajouter(Etape ... etapes){
-        for (int i = 0; i < etapes.length; i++) {
-            this.etapes.add(etapes[i]);
+        for (Etape etape : etapes) {
+            this.etapes.add(etape);
         }
     }
 

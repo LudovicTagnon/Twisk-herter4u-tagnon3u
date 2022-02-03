@@ -5,8 +5,8 @@ public class ActiviteRestreinte extends Activite{
         super(nom);
     }
 
-    public ActiviteRestreinte(String nom, int tempps, int ecartTemps) {
-        super(nom, tempps, ecartTemps);
+    public ActiviteRestreinte(String nom, int temps, int ecartTemps) {
+        super(nom, temps, ecartTemps);
     }
 
     @Override

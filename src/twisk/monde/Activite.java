@@ -22,11 +22,6 @@ public class Activite extends Etape{
 
     @Override
     public String toString() {
-        return "Activite{" +
-                "temps=" + temps +
-                ", ecartTemps=" + ecartTemps +
-                ", nom='" + nom + '\'' +
-                ", gestSucc=" + gestSucc +
-                '}';
+        return nom + " : Successeur = " + gestSucc + " - temps : " + temps + " - ecartTemps : " + ecartTemps;
     }
 }

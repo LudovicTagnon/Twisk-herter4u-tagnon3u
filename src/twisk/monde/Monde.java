@@ -52,7 +52,9 @@ public class Monde implements Iterable<Etape>{
     @Override
     public String toString() {
         return "Monde{" +
-                "gestEtap=" + gestEtap +
+                "lesEtapes=" + lesEtapes +
+                ", entree=" + entree +
+                ", sortie=" + sortie +
                 '}';
     }
 }

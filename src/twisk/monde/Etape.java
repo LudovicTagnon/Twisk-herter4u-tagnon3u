@@ -9,8 +9,8 @@ public abstract class Etape implements Iterable<Etape>{
 
     public Etape(String nom) {
         this.nom = nom;
+        this.gestSucc = new GestionnaireSuccesseurs();
     }
-
 
 
     public void ajouterSuccesseur(Etape ... etapes){
@@ -25,6 +25,10 @@ public abstract class Etape implements Iterable<Etape>{
         return false;
     }
 
+    public int nbEtapes(){              // utile pour test ajouterSuccesseur()
+        return gestSucc.nbEtapes();
+    }
+
     @Override
     public Iterator<Etape> iterator() {
         return this.iterator();
@@ -32,9 +36,7 @@ public abstract class Etape implements Iterable<Etape>{
 
     @Override
     public String toString() {
-        return "Etape{" +
-                "nom='" + nom + '\'' +
-                ", gestSucc=" + gestSucc +
-                '}';
+        return nom + " : Successeur = " + gestSucc;
+
     }
 }
