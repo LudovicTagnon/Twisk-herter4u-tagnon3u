@@ -12,10 +12,6 @@ public abstract class Etape implements Iterable<Etape>{
         this.gestSucc = new GestionnaireSuccesseurs();
     }
 
-    public GestionnaireSuccesseurs getGestSucc() {
-        return gestSucc;
-    }
-
     public void ajouterSuccesseur(Etape ... etapes){
         this.gestSucc.ajouter(etapes);
     }
@@ -39,7 +35,6 @@ public abstract class Etape implements Iterable<Etape>{
 
     @Override
     public String toString() {
-        return nom + " : Successeur = " + gestSucc;
-
+        return nom + " : " + nbEtapes() + " successeurs = " + gestSucc;
     }
 }

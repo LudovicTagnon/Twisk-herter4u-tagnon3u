@@ -8,12 +8,12 @@ public class GestionnaireEtapes implements Iterable<Etape>{
     private ArrayList<Etape> etapes;
 
     public GestionnaireEtapes(){
-        this.etapes = new ArrayList<Etape>(10);
+        this.etapes = new ArrayList<>(10);
     }
 
     public void ajouter(Etape ... etapes){
-        for (int i = 0; i < etapes.length; i++) {
-            this.etapes.add(etapes[i]);
+        for (Etape etape : etapes) {
+            this.etapes.add(etape);
         }
     }
 
@@ -32,4 +32,5 @@ public class GestionnaireEtapes implements Iterable<Etape>{
                 "etapes=" + etapes +
                 '}';
     }
+
 }

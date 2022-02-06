@@ -8,7 +8,7 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
     private ArrayList<Etape> etapes;
 
     public GestionnaireSuccesseurs() {
-        this.etapes = new ArrayList<Etape>(10);
+        this.etapes = new ArrayList<>(10);
     }
 
     public void ajouter(Etape ... etapes){
@@ -28,8 +28,14 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
 
     @Override
     public String toString() {
-        return "GestionnaireSuccesseurs{" +
-                "etapes=" + etapes +
-                '}';
+        StringBuilder succ = new StringBuilder();
+        for(int i = 0; i < nbEtapes(); i++){
+            succ.append(this.etapes.get(i).nom);
+            if(i < nbEtapes() - 1){
+                succ.append(" - ");
+            }
+        }
+
+        return succ.toString();
     }
 }

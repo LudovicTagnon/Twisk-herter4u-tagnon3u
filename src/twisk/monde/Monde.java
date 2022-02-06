@@ -14,23 +14,15 @@ public class Monde implements Iterable<Etape>{
         this.sortie = new SasSortie();
     }
 
-    public GestionnaireEtapes getLesEtapes() {
-        return lesEtapes;
-    }
-
     public SasEntree getEntree() {
         return entree;
     }
 
-    public SasSortie getSortie() {
-        return sortie;
-    }
-
-    public void aCommmeEntree(Etape ... etapes){
+    public void aCommeEntree(Etape ... etapes){
         this.entree.ajouterSuccesseur(etapes);
     }
 
-    public void aCommmeSortie(Etape ... etapes){
+    public void aCommeSortie(Etape ... etapes){
         for(Etape e : etapes) {
             e.ajouterSuccesseur(this.sortie);
         }
@@ -55,18 +47,19 @@ public class Monde implements Iterable<Etape>{
         return S;
     }
 
-
     @Override
     public Iterator<Etape> iterator() {
-        return null;
+        return lesEtapes.iterator();
     }
 
     @Override
     public String toString() {
-        return "Monde{" +
-                "lesEtapes=" + lesEtapes +
-                ", entree=" + entree +
-                ", sortie=" + sortie +
-                '}';
+        StringBuilder res = new StringBuilder(this.entree + "\n" + this.sortie + "\n");
+
+        for(Etape e : lesEtapes){
+            res.append(e).append("\n");
+        }
+
+        return res.toString();
     }
 }

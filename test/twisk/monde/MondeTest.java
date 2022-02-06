@@ -10,11 +10,6 @@ class MondeTest {
     Monde m;
     Activite a1, a2;
     Guichet g1, g2, g3;
-    SasEntree SE;
-    SasSortie SS;
-    GestionnaireSuccesseurs ge;
-
-
 
     @BeforeEach
     void setUp() {
@@ -33,7 +28,7 @@ class MondeTest {
 
     @Test
     void aCommmeEntree() {
-        m.aCommmeEntree(g1, g2, g3);
+        m.aCommeEntree(g1, g2, g3);
 
         System.out.println(m.getEntree().nbEtapes());
     }
@@ -47,7 +42,6 @@ class MondeTest {
         m.ajouter(new Guichet("guichet"), new Activite("activité"));
         assertEquals(m.nbEtapes(), 2);
         assertNotEquals(m.nbEtapes(), 1);
-
     }
 
     @Test

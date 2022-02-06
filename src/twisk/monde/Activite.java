@@ -19,9 +19,4 @@ public class Activite extends Etape{
     public boolean estUneActivite(){
         return true;
     }
-
-    @Override
-    public String toString() {
-        return nom + " : Successeur = " + gestSucc + " - temps : " + temps + " - ecartTemps : " + ecartTemps;
-    }
 }
