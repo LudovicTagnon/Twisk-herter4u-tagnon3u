@@ -9,7 +9,7 @@ public class ClientTwisk {
         Etape guichet2 = new Guichet("File 2");
         Etape caisse1 = new Activite("Caisse 1");
         Etape caisse2 = new Activite("Caisse 2");
-        Etape manege = new Activite("Manege");
+        Etape manege = new ActiviteRestreinte("Manege");
         Etape zoo = new Activite("Zoo");
         Etape file3 = new Guichet("File Toilette");
         Etape toilette = new Activite("Toilette");
@@ -30,7 +30,7 @@ public class ClientTwisk {
 
         Simulation sim = new Simulation();
 
-        //sim.simuler(m);
+        sim.simuler(m);
 
 
 
@@ -54,6 +54,6 @@ public class ClientTwisk {
         monde.aCommeEntree(etape1);
         monde.aCommeSortie(act1) ;
 
-        sim.simuler(monde);
+        //sim.simuler(monde);
     }
 }
