@@ -4,21 +4,18 @@
 
 #include "def.h"
 
-// TAILLE DU TABLEAU ou_sont_les_clients : nbEtapes * (nbClient + 1)
+#define NBCLIENT 5
+#define NBETAPE 5
+
+// TAILLE DU TABLEAU ou_sont_les_clients : NBETAPE * (NBCLIENT + 1)
 
 int main(int argc, char const *argv[])
 {
-
-    // VARIABLES
-    int nbClient = 6;
-    int nbEtapes = 3;
-    int tailleEmpClient = (nbEtapes) * (nbClient + 1);
-
     // TABLEAU DES NUMEROS
-    int *tab = start_simulation(nbEtapes, 0, nbClient, NULL);
+    int *tab = start_simulation(NBETAPE, 0, NBCLIENT, NULL);
 
     printf("Nombre des clients : ");
-    for (int i = 0; i < nbClient; i++)
+    for (int i = 0; i < NBCLIENT; i++)
     {
         printf("%i ", tab[i]);
     }
@@ -26,21 +23,23 @@ int main(int argc, char const *argv[])
 
     // TABLEAU DES EMPLACEMENTS
 
-    int *client = ou_sont_les_clients(nbEtapes, nbClient);
+    int *client = ou_sont_les_clients(NBETAPE, NBCLIENT);
 
     printf("Emplacements des clients : \n");
 
-    while (client[(nbEtapes-1)*(nbClient + 1)] < nbClient){
-        client = ou_sont_les_clients(nbEtapes, nbClient);
-        for (int i = 0; i < tailleEmpClient; i++){
-            if (i % (nbClient + 1) == 0){
-                printf("\n");
+    while (client[(NBETAPE-1)*(NBCLIENT + 1)    ] < NBCLIENT){
+        client = ou_sont_les_clients(NBETAPE, NBCLIENT);
+
+        for (int i = 0; i < NBETAPE; i++){
+            printf("Etape %d : %d client : ", i, client[NBCLIENT*i+i]);
+            for(int j = 0; j < client[NBCLIENT*i+i]; j++){
+                printf("%d ", client[NBCLIENT*i+1+i+j]);
             }
-            printf("%i ", client[i]);
+            printf("\n");
         }
         printf("\n");
-
-        printf("1 : %d, 2 : %d, 3 : %d\n", client[0], client[nbClient+1], client[nbClient*2+2]);
+        
+        
         sleep(1);
     }
 
