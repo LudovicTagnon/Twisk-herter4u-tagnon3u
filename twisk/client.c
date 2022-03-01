@@ -4,19 +4,21 @@
 #include "def.h"
 
 #define SASENTREE 0
-#define SASSORTIE 4
-#define ACTIVITE 1
-#define ACTIVITE2 2
-#define ACTIVITE3 3
+#define GUICHET 1
+#define ACTIVITE 2
+#define SASSORTIE 3
+
+#define num_sem_guichet 1
 
 void simulation(int ids){
     entrer(SASENTREE);
     delai(6, 3);
-    transfert(SASENTREE, ACTIVITE);
-    delai(8, 4);
-    transfert(ACTIVITE, ACTIVITE2);
-    delai(7, 2);
-    transfert(ACTIVITE2, ACTIVITE3);
-    delai(4, 1);
-    transfert(ACTIVITE3, SASSORTIE);
+    transfert(SASENTREE, GUICHET);
+    
+    P(ids, num_sem_guichet);
+        transfert(GUICHET, ACTIVITE);
+        delai(6, 2);
+    V(ids, num_sem_guichet);
+
+    transfert(ACTIVITE, SASSORTIE);
 }

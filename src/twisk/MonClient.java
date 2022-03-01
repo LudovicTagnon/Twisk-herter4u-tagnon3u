@@ -3,7 +3,7 @@ package twisk;
 import twisk.monde.*;
 import twisk.simulation.Simulation;
 
-public class ClientTwisk {
+public class MonClient {
     public static void main(String[] args) {
         Etape guichet1 = new Guichet("File 1");
         Etape guichet2 = new Guichet("File 2");
@@ -30,7 +30,7 @@ public class ClientTwisk {
 
         Simulation sim = new Simulation();
 
-        sim.simuler(m);
+        //sim.simuler(m);
 
 
 
