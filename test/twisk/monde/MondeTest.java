@@ -8,30 +8,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class MondeTest {
 
     Monde m;
-    Activite a1, a2;
     Guichet g1, g2, g3;
+    Activite a1, a2, a3;
     SasEntree e;
     SasSortie s;
 
     @BeforeEach
     void setUp() {
         m = new Monde();
-        a1 = new Activite("a1");
-        a2 = new Activite("a2");
+
         g1 = new Guichet("g1");
-        g2 = new Guichet("g2");
-        g3 = new Guichet("g3");
+
+        a1 = new Activite("a1", 2, 1);
+        a2 = new Activite("a2", 5, 2);
+
 
         e = new SasEntree();
         s = new SasSortie();
 
-        m.aCommeEntree(g1, g2, g3);
+        m.aCommeEntree(g1);
         g1.ajouterSuccesseur(a1);
-        g2.ajouterSuccesseur(a2);
-        g3.ajouterSuccesseur(a2);
-        m.aCommeSortie(a1, a2);
+        a1.ajouterSuccesseur(a2);
+        m.aCommeSortie(a2);
 
-        m.ajouter(a1, a2, g1, g2, g3, e, s);
+        m.ajouter(g1, a1, a2, e, s);
     }
 
     @Test

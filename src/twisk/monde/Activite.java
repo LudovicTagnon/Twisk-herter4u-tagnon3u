@@ -21,8 +21,24 @@ public class Activite extends Etape{
     }
 
     public String toC(){
-        StringBuilder ligne = new StringBuilder();
-        ligne.append("");
+        for(Etape suivant : gestSucc){
+            ligne.append( "transfert(" + this.nom + ", " + suivant.nom + ");\n" );
+            if(suivant.estUnGuichet() == false && suivant.estUneSortie() == false){
+                ligne.append("delai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
+            }
+
+            ligne.append(suivant.toC());
+        }
         return String.valueOf(ligne);
+    }
+
+    @Override
+    public int getTemps() {
+        return temps;
+    }
+
+    @Override
+    public int getEcartTemps() {
+        return ecartTemps;
     }
 }

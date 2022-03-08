@@ -4,12 +4,12 @@
 #include "def.h"
 
 #define SASENTREE 0
-#define GUICHET1 1
+#define GUICHET1 6
 #define ACTIVITE1 2
 #define ACTIVITE2 3
 #define GUICHET2 4
 #define ACTIVITE3 5
-#define SASSORTIE 6
+#define SASSORTIE 1
 
 #define num_sem_guichet1 1
 #define num_sem_guichet2 2

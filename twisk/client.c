@@ -12,7 +12,9 @@
 
 void simulation(int ids){
     entrer(SASENTREE);
+
     delai(6, 3);
+    
     transfert(SASENTREE, GUICHET);
     
     P(ids, num_sem_guichet);

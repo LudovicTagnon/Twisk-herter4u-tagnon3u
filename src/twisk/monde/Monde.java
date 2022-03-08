@@ -53,13 +53,11 @@ public class Monde implements Iterable<Etape>{
                 "#include <stdio.h>\n" +
                 "#include \"def.h\"\n");
 
+        ligne.append(entree.toDefine());
+
         ligne.append("void simulation(int ids){\n");
 
         ligne.append(entree.toC());
-
-        ligne.append("");
-
-        ligne.append(sortie.toC());
 
         ligne.append("}");
 
