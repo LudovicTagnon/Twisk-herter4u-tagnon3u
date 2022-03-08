@@ -47,6 +47,25 @@ public class Monde implements Iterable<Etape>{
         return S;
     }
 
+    public String toC(){
+        StringBuilder ligne = new StringBuilder();
+        ligne.append("#include <stdlib.h>\n" +
+                "#include <stdio.h>\n" +
+                "#include \"def.h\"\n");
+
+        ligne.append("void simulation(int ids){\n");
+
+        ligne.append(entree.toC());
+
+        ligne.append("");
+
+        ligne.append(sortie.toC());
+
+        ligne.append("}");
+
+        return String.valueOf(ligne);
+    }
+
     @Override
     public Iterator<Etape> iterator() {
         return lesEtapes.iterator();
@@ -59,7 +78,6 @@ public class Monde implements Iterable<Etape>{
         for(Etape e : lesEtapes){
             res.append(e).append("\n");
         }
-
         return res.toString();
     }
 }

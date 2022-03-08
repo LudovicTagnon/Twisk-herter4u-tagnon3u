@@ -19,4 +19,10 @@ public class Activite extends Etape{
     public boolean estUneActivite(){
         return true;
     }
+
+    public String toC(){
+        StringBuilder ligne = new StringBuilder();
+        ligne.append("");
+        return String.valueOf(ligne);
+    }
 }
