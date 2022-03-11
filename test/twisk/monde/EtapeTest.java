@@ -45,4 +45,9 @@ class EtapeTest {
         System.out.println(activite);
         System.out.println(guichet);
     }
+
+    @Test
+    void testCptEtape(){
+        System.out.println(activite.getCptEtape());
+    }
 }

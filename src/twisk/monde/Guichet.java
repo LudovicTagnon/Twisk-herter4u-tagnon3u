@@ -26,15 +26,36 @@ public class Guichet extends Etape{
     }
 
     @Override
+    public String toDefine() {
+        for(Etape suivant : gestSucc){
+            ligneDefine.append("#define " + this.nom + " " + this.cptEtape + "\n" );
+            ligneDefine.append(suivant.toDefine());
+        }
+        return String.valueOf(ligneDefine);
+    }
+
+    @Override
     public String toC() {
         for(Etape suivant : gestSucc) {
 
-            ligne.append( "P( ids, num_sem_guichet" + this.cptSemaphore + ");\n" );
-            ligne.append("\ttransfert(" + this.nom + ", " + suivant.nom + ");\n" );
-            ligne.append("\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");            ligne.append( "V( ids, num_sem_guichet" + this.cptSemaphore + ");\n" );
+            ligne.append( "\tP( ids, num_sem_guichet" + this.cptSemaphore + ");\n" );
+            ligne.append("\t\ttransfert(" + this.nom + ", " + suivant.nom + ");\n" );
+            ligne.append("\t\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
+            ligne.append( "\tV( ids, num_sem_guichet" + this.cptSemaphore + ");\n" );
             ligne.append(suivant.toC());
         }
         return String.valueOf(ligne);
     }
+
+    @Override
+    public String toSem(){
+
+        for(Etape suivant: gestSucc){
+            ligneSem.append("#define num_sem_guichet" + this.cptSemaphore + " " + this.cptSemaphore + "\n");
+            ligneSem.append(suivant.toSem());
+        }
+        return String.valueOf(ligneSem);
+    }
+
 
 }

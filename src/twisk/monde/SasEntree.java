@@ -12,13 +12,13 @@ public class SasEntree extends Activite{
 
     @Override
     public String toC() {
-        ligne.append("entree(" + nom + ");\n");
-        ligne.append("delai(" + this.getTemps() + ", " + this.getEcartTemps() + ");\n");
+        ligne.append("\tentree(" + nom + ");\n");
+        ligne.append("\tdelai(" + this.getTemps() + ", " + this.getEcartTemps() + ");\n");
 
         for(Etape suivant : gestSucc){
-            ligne.append("transfert(" + this.nom + ", " + suivant.nom + ");\n");
+            ligne.append("\ttransfert(" + this.nom + ", " + suivant.nom + ");\n");
             if(suivant.estUnGuichet() == false){
-                ligne.append("delai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
+                ligne.append("\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
             }
             ligne.append(suivant.toC());
         }

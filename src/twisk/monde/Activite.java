@@ -20,16 +20,34 @@ public class Activite extends Etape{
         return true;
     }
 
+    @Override
+    public String toDefine() {
+        for(Etape suivant : gestSucc){
+            ligneDefine.append("#define " + this.nom + " " + this.cptEtape + "\n" );
+            ligneDefine.append(suivant.toDefine());
+        }
+        return String.valueOf(ligneDefine);
+    }
+
+    @Override
     public String toC(){
         for(Etape suivant : gestSucc){
-            ligne.append( "transfert(" + this.nom + ", " + suivant.nom + ");\n" );
+            ligne.append( "\ttransfert(" + this.nom + ", " + suivant.nom + ");\n" );
             if(suivant.estUnGuichet() == false && suivant.estUneSortie() == false){
-                ligne.append("delai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
+                ligne.append("\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
             }
-
             ligne.append(suivant.toC());
         }
         return String.valueOf(ligne);
+    }
+
+    @Override
+    public String toSem(){
+
+        for(Etape suivant: gestSucc){
+            ligneSem.append(suivant.toSem());
+        }
+        return String.valueOf(ligneSem);
     }
 
     @Override
@@ -41,4 +59,6 @@ public class Activite extends Etape{
     public int getEcartTemps() {
         return ecartTemps;
     }
+
+
 }

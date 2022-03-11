@@ -8,4 +8,10 @@ public class SasSortie extends Activite{
     public boolean estUneSortie(){
         return true;
     }
+
+    @Override
+    public String toDefine() {
+        ligneDefine.append("#define " + this.nom + " " + this.cptEtape + "\n" );
+        return String.valueOf(ligneDefine);
+    }
 }

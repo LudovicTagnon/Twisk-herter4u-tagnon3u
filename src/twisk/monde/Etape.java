@@ -10,8 +10,12 @@ public abstract class Etape implements Iterable<Etape>{
     protected GestionnaireSuccesseurs gestSucc;
     protected int cptEtape;
     protected StringBuilder ligne;
+    protected StringBuilder ligneDefine;
+    protected StringBuilder ligneSem;
     protected int temps;
     protected int ecartTemps;
+
+
 
     public Etape(String nom) {
         this.nom = nom;
@@ -19,9 +23,14 @@ public abstract class Etape implements Iterable<Etape>{
         FabriqueNumero fabNum = FabriqueNumero.getInstance();
         this.cptEtape = fabNum.getNumeroEtape();
         ligne = new StringBuilder();
-
+        this.ligneDefine = new StringBuilder();
+        this.ligneSem = new StringBuilder();
         temps = 0;
         ecartTemps = 0;
+    }
+
+    public int getCptEtape() {
+        return cptEtape;
     }
 
     public int getTemps() {
@@ -56,17 +65,11 @@ public abstract class Etape implements Iterable<Etape>{
         return gestSucc.nbEtapes();
     }
 
-    public String toDefine(){
-        StringBuilder define = new StringBuilder();
-        for (Etape suivant : gestSucc){
-            define.append("#define " + suivant.nom + " " + suivant.cptEtape + "\n");
-            define.append(suivant.toDefine());
-        }
-
-        return String.valueOf(define);
-    }
+    public abstract String toDefine();
 
     public abstract String toC();
+
+    public abstract String toSem();
 
     @Override
     public Iterator<Etape> iterator() {

@@ -18,20 +18,18 @@ class MondeTest {
         m = new Monde();
 
         g1 = new Guichet("g1");
-
         a1 = new Activite("a1", 2, 1);
         a2 = new Activite("a2", 5, 2);
 
 
-        e = new SasEntree();
-        s = new SasSortie();
-
         m.aCommeEntree(g1);
-        g1.ajouterSuccesseur(a1);
+
         a1.ajouterSuccesseur(a2);
+        g1.ajouterSuccesseur(a1);
+
         m.aCommeSortie(a2);
 
-        m.ajouter(g1, a1, a2, e, s);
+        m.ajouter(g1, a1, a2);
     }
 
     @Test
@@ -65,5 +63,12 @@ class MondeTest {
     @Test
     void toC(){
         System.out.println(m.toC());
+    }
+
+    @Test
+    void testCptEtape(){
+        for(Etape etape : m.getLesEtapes()){
+            System.out.println(etape.nom + " : " + etape.getCptEtape());
+        }
     }
 }

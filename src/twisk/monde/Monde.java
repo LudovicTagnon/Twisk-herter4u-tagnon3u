@@ -4,14 +4,17 @@ import java.util.Iterator;
 
 public class Monde implements Iterable<Etape>{
 
-    private GestionnaireEtapes lesEtapes;
     private SasEntree entree;
+    private GestionnaireEtapes lesEtapes;
     private SasSortie sortie;
 
     public Monde(){
-        this.lesEtapes = new GestionnaireEtapes();
         this.entree = new SasEntree();
-        this.sortie = new SasSortie();
+        this.lesEtapes = new GestionnaireEtapes();
+    }
+
+    public GestionnaireEtapes getLesEtapes() {
+        return lesEtapes;
     }
 
     public SasEntree getEntree() {
@@ -19,10 +22,12 @@ public class Monde implements Iterable<Etape>{
     }
 
     public void aCommeEntree(Etape ... etapes){
+
         this.entree.ajouterSuccesseur(etapes);
     }
 
     public void aCommeSortie(Etape ... etapes){
+        this.sortie = new SasSortie();
         for(Etape e : etapes) {
             e.ajouterSuccesseur(this.sortie);
         }
@@ -54,6 +59,8 @@ public class Monde implements Iterable<Etape>{
                 "#include \"def.h\"\n");
 
         ligne.append(entree.toDefine());
+
+        ligne.append(entree.toSem());
 
         ligne.append("void simulation(int ids){\n");
 
