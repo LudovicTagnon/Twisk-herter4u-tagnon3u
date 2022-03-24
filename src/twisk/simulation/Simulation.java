@@ -34,7 +34,7 @@ public class Simulation {
         for (int i = 0; i < monde.nbEtapes(); i++) {
             System.out.print(tab[i] + " ");
         }
-        System.out.println();
+        System.out.println("");
 
         int[] client = ou_sont_les_clients(monde.nbEtapes(), nbClient);
 
