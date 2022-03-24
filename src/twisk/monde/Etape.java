@@ -29,6 +29,10 @@ public abstract class Etape implements Iterable<Etape>{
         ecartTemps = 0;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
     public int getCptEtape() {
         return cptEtape;
     }

@@ -4,6 +4,8 @@ public class SasEntree extends Activite{
 
     public SasEntree() {
         super("Entree");
+        this.temps = 5;
+        this.ecartTemps = 2;
     }
 
     public boolean estUneEntree(){
@@ -12,7 +14,7 @@ public class SasEntree extends Activite{
 
     @Override
     public String toC() {
-        ligne.append("\tentree(" + nom + ");\n");
+        ligne.append("\tentrer(" + nom + ");\n");
         ligne.append("\tdelai(" + this.getTemps() + ", " + this.getEcartTemps() + ");\n");
 
         for(Etape suivant : gestSucc){

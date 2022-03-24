@@ -13,6 +13,10 @@ public class Monde implements Iterable<Etape>{
         this.lesEtapes = new GestionnaireEtapes();
     }
 
+    public String getNomEtape(int i){
+        return lesEtapes.getNomEtape(i);
+    }
+
     public GestionnaireEtapes getLesEtapes() {
         return lesEtapes;
     }
@@ -38,7 +42,7 @@ public class Monde implements Iterable<Etape>{
     }
 
     public int nbEtapes(){
-        return this.lesEtapes.nbEtapes();
+        return this.lesEtapes.nbEtapes()+2;
     }
 
 

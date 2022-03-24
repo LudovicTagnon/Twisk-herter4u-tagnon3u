@@ -17,6 +17,10 @@ public class GestionnaireEtapes implements Iterable<Etape>{
         }
     }
 
+    public String getNomEtape(int i){
+        return this.etapes.get(i).getNom();
+    }
+
     public int nbEtapes(){
         return this.etapes.size();
     }

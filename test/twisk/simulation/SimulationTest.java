@@ -27,8 +27,8 @@ class SimulationTest {
 
         m.aCommeEntree(g1);
 
-        a1.ajouterSuccesseur(a2);
         g1.ajouterSuccesseur(a1);
+        a1.ajouterSuccesseur(a2);
 
         m.aCommeSortie(a2);
 
