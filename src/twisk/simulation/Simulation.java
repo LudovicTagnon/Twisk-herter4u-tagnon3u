@@ -4,10 +4,13 @@ import twisk.monde.Monde;
 import twisk.outils.KitC;
 
 public class Simulation {
-    KitC kitC;
+    private KitC kitC;
+    private int nbClient;
+
     public Simulation() {
         kitC = new KitC();
         kitC.creerEnvironnement();
+        nbClient = 5;
     }
 
     public native int[] start_simulation(int nbEtapes, int nbServices, int nbClients, int[] tabJetonsServices);
@@ -21,7 +24,7 @@ public class Simulation {
         System.load("/tmp/twisk/libTwisk.so");
 
 
-        int nbClient = 10;
+        int nbClient = this.nbClient;
 
         int[] tabJetonsGuichet = new int[monde.nbGuichets()]; //ajouter nbjetons
         for (int i = 0; i < monde.nbGuichets(); i++) {
@@ -70,5 +73,9 @@ public class Simulation {
         }
 
         nettoyage();
+    }
+
+    public void setNbClients(int nbClient){
+        this.nbClient = nbClient;
     }
 }
