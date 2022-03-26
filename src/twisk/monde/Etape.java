@@ -38,6 +38,7 @@ public abstract class Etape implements Iterable<Etape>{
     public String changementNom() {
         String changementNom = this.nom.replace(' ', '_');
         changementNom = changementNom.replace('è', 'e');
+        changementNom = changementNom.replace('é', 'e');
         return changementNom;
     }
 

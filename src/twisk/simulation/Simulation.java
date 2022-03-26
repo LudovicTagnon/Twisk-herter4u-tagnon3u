@@ -24,6 +24,10 @@ public class Simulation {
         kitC.construireLaLibrairie();
         System.load("/tmp/twisk/libTwisk.so");
 
+        System.out.println("\tMonde Simulé :");
+        System.out.println(monde);
+
+        System.out.println();
 
         int nbClient = this.nbClient;
 
@@ -39,15 +43,15 @@ public class Simulation {
 
         int[] tab = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
 
-        System.out.println("Nombre des clients :");
+        System.out.println("\tNombre des clients :");
         for (int i = 0; i < monde.nbEtapes(); i++) {
             System.out.print(tab[i] + " ");
         }
-        System.out.println();
+        System.out.println("\n");
 
         int[] client = ou_sont_les_clients(monde.nbEtapes(), nbClient);
 
-        System.out.println("Emplacements des clients : ");
+        System.out.println("\tEmplacements des clients : ");
 
         while (client[(monde.nbEtapes() - 1) * (nbClient + 1)] < nbClient) {
             client = ou_sont_les_clients(monde.nbEtapes(), nbClient);    //Raffraichit le tableau avec la nouvelle position des clients
