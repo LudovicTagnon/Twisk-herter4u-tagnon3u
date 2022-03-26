@@ -1,5 +1,6 @@
 package twisk.simulation;
 
+import twisk.monde.Etape;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
 
@@ -27,8 +28,13 @@ public class Simulation {
         int nbClient = this.nbClient;
 
         int[] tabJetonsGuichet = new int[monde.nbGuichets()]; //ajouter nbjetons
-        for (int i = 0; i < monde.nbGuichets(); i++) {
-            tabJetonsGuichet[i] = 2;
+
+        int k = 0;
+        for (Etape etape : monde){
+            if(etape.estUnGuichet()){
+                tabJetonsGuichet[k] = etape.getNbJetons();
+                k++;
+            }
         }
 
         int[] tab = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
@@ -37,7 +43,7 @@ public class Simulation {
         for (int i = 0; i < monde.nbEtapes(); i++) {
             System.out.print(tab[i] + " ");
         }
-        System.out.println("");
+        System.out.println();
 
         int[] client = ou_sont_les_clients(monde.nbEtapes(), nbClient);
 

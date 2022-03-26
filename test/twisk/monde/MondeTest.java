@@ -67,7 +67,7 @@ class MondeTest {
 
     @Test
     void testCptEtape(){
-        for(Etape etape : m.getLesEtapes()){
+        for(Etape etape : m){
             System.out.println(etape.nom + " : " + etape.getCptEtape());
         }
     }

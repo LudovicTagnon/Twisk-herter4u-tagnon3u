@@ -11,8 +11,6 @@ class SimulationTest {
     Monde m;
     Guichet g1, g2, g3;
     Activite a1, a2, a3;
-    SasEntree e;
-    SasSortie s;
 
     @BeforeEach
     void setUp() {

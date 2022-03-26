@@ -14,6 +14,7 @@ public abstract class Etape implements Iterable<Etape>{
     protected StringBuilder ligneSem;
     protected int temps;
     protected int ecartTemps;
+    protected int nbJetons;
 
 
 
@@ -27,10 +28,17 @@ public abstract class Etape implements Iterable<Etape>{
         this.ligneSem = new StringBuilder();
         temps = 0;
         ecartTemps = 0;
+        nbJetons = 0;
     }
 
     public String getNom() {
         return nom;
+    }
+
+    public String changementNom() {
+        String changementNom = this.nom.replace(' ', '_');
+        changementNom = changementNom.replace('è', 'e');
+        return changementNom;
     }
 
     public int getCptEtape() {
@@ -67,6 +75,10 @@ public abstract class Etape implements Iterable<Etape>{
 
     public int nbEtapes(){              // utile pour test ajouterSuccesseur()
         return gestSucc.nbEtapes();
+    }
+
+    public int getNbJetons() {
+        return nbJetons;
     }
 
     public abstract String toDefine();

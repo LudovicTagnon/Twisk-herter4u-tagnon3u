@@ -4,8 +4,6 @@ import twisk.outils.FabriqueNumero;
 
 public class Guichet extends Etape{
 
-    private int nbJetons;
-
     private int cptSemaphore;
 
     public Guichet(String nom) {
@@ -28,7 +26,7 @@ public class Guichet extends Etape{
     @Override
     public String toDefine() {
         for(Etape suivant : gestSucc){
-            ligneDefine.append("#define " + this.nom + " " + this.cptEtape + "\n" );
+            ligneDefine.append("#define " + this.changementNom() + " " + this.cptEtape + "\n" );
             ligneDefine.append(suivant.toDefine());
         }
         return String.valueOf(ligneDefine);
@@ -39,7 +37,7 @@ public class Guichet extends Etape{
         for(Etape suivant : gestSucc) {
 
             ligne.append( "\tP( ids, num_sem_guichet" + this.cptSemaphore + ");\n" );
-            ligne.append("\t\ttransfert(" + this.nom + ", " + suivant.nom + ");\n" );
+            ligne.append("\t\ttransfert(" + this.changementNom() + ", " + suivant.changementNom() + ");\n" );
             ligne.append("\t\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
             ligne.append( "\tV( ids, num_sem_guichet" + this.cptSemaphore + ");\n" );
             ligne.append(suivant.toC());

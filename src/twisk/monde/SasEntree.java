@@ -18,7 +18,7 @@ public class SasEntree extends Activite{
         ligne.append("\tdelai(" + this.getTemps() + ", " + this.getEcartTemps() + ");\n");
 
         for(Etape suivant : gestSucc){
-            ligne.append("\ttransfert(" + this.nom + ", " + suivant.nom + ");\n");
+            ligne.append("\ttransfert(" + this.changementNom() + ", " + suivant.changementNom() + ");\n");
             if(suivant.estUnGuichet() == false){
                 ligne.append("\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
             }

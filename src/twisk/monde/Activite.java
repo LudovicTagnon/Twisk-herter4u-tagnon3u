@@ -23,7 +23,7 @@ public class Activite extends Etape{
     @Override
     public String toDefine() {
         for(Etape suivant : gestSucc){
-            ligneDefine.append("#define " + this.nom + " " + this.cptEtape + "\n" );
+            ligneDefine.append("#define " + this.changementNom() + " " + this.cptEtape + "\n" );
             ligneDefine.append(suivant.toDefine());
         }
         return String.valueOf(ligneDefine);
@@ -32,8 +32,8 @@ public class Activite extends Etape{
     @Override
     public String toC(){
         for(Etape suivant : gestSucc){
-            ligne.append( "\ttransfert(" + this.nom + ", " + suivant.nom + ");\n" );
-            if(suivant.estUnGuichet() == false && suivant.estUneSortie() == false){
+            ligne.append( "\ttransfert(" + this.changementNom() + ", " + suivant.changementNom() + ");\n" );
+            if(!suivant.estUnGuichet() && !suivant.estUneSortie()){
                 ligne.append("\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
             }
             ligne.append(suivant.toC());
