@@ -17,6 +17,10 @@ public class Monde implements Iterable<Etape>{
         return lesEtapes.getNomEtape(i);
     }
 
+    public Etape getEtape(int i){
+        return lesEtapes.getEtape(i);
+    }
+
     public SasEntree getEntree() {
         return entree;
     }

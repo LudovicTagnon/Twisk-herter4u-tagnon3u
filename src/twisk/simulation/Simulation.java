@@ -6,12 +6,14 @@ import twisk.outils.KitC;
 
 public class Simulation {
     private KitC kitC;
-    private int nbClient;
+    private int nbClients;
+    private GestionnaireClients gestClients;
 
     public Simulation() {
         kitC = new KitC();
         kitC.creerEnvironnement();
-        nbClient = 5;
+        nbClients = 5;
+        gestClients = new GestionnaireClients(this.nbClients);
     }
 
     public native int[] start_simulation(int nbEtapes, int nbServices, int nbClients, int[] tabJetonsServices);
@@ -29,7 +31,7 @@ public class Simulation {
 
         System.out.println();
 
-        int nbClient = this.nbClient;
+        int nbClient = this.nbClients;
 
         int[] tabJetonsGuichet = new int[monde.nbGuichets()]; //ajouter nbjetons
 
@@ -42,6 +44,7 @@ public class Simulation {
         }
 
         int[] tab = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
+        gestClients.setClients(tab);
 
         System.out.println("\tNombre des clients :");
         for (int i = 0; i < monde.nbEtapes(); i++) {
@@ -59,7 +62,7 @@ public class Simulation {
             for (int i = 0; i < monde.nbEtapes(); i++) {      //Affichage des clients en fonction du nombre de clients dans l'activité (ou le guichet)
                 //Affichage de si i est un SAS ou une activité(ou guichet)
                 if (i == 0) {
-                    System.out.print("Etape " + i + " (SasEntree): " + client[nbClient * i + i] + " client : ");
+                    System.out.print("Etape " + i + " (SasEntree): " + client[i] + " client : ");
                 } else if (i == monde.nbEtapes() - 1) {
                     System.out.print("Etape " + i + " (SasSortie): " + client[nbClient * i + i] + " client : ");
                 } else {
@@ -67,12 +70,17 @@ public class Simulation {
                 }
 
                 //Affichage des clients dans l'activité (ou guichet) i
+                int rang = 1;
                 for (int j = 0; j < client[nbClient * i + i]; j++) {
-                    System.out.print(client[nbClient * i + 1 + i + j] + " ");
+                    if(i != 0 && i < monde.nbEtapes()-1){
+                        gestClients.allerA(client[nbClient * i + 1 + i + j], monde.getEtape(i-1), rang);
+                    }
+                    System.out.print(client[nbClient * i + 1 + i + j] +":" + rang + " ");
+                    rang++;
                 }
-                System.out.print("\n");
+                System.out.println();
             }
-            System.out.print("\n");
+            System.out.println();
 
             //On met le prog en pause 1s
             try {
@@ -86,6 +94,6 @@ public class Simulation {
     }
 
     public void setNbClients(int nbClient){
-        this.nbClient = nbClient;
+        this.nbClients = nbClient;
     }
 }
