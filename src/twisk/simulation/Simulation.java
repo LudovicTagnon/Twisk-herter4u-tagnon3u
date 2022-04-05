@@ -47,7 +47,7 @@ public class Simulation {
         gestClients.setClients(tab);
 
         System.out.println("\tNombre des clients :");
-        for (int i = 0; i < monde.nbEtapes(); i++) {
+        for (int i = 0; i < this.nbClients; i++) {
             System.out.print(tab[i] + " ");
         }
         System.out.println("\n");
@@ -89,7 +89,7 @@ public class Simulation {
                 e.printStackTrace();
             }
         }
-
+        gestClients.nettoyer();
         nettoyage();
     }
 

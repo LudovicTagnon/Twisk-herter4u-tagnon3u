@@ -36,7 +36,6 @@ public class Guichet extends Etape{
     @Override
     public String toC() {
         for(Etape suivant : gestSucc) {
-
             ligne.append( "\tP( ids, num_sem_guichet" + this.cptSemaphore + ");\n" );
             ligne.append("\t\ttransfert(" + this.changementNom() + ", " + suivant.changementNom() + ");\n" );
             ligne.append("\t\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");

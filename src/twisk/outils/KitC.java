@@ -60,8 +60,6 @@ public class KitC {
         try {
             Process p = runtime.exec("gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o" );
 
-            // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
-            // à reprendre éventuellement et à adapter à votre code
             BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
@@ -83,8 +81,7 @@ public class KitC {
         try {
             Process p = runtime.exec("gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/client.o /tmp/twisk/codeNatif.o -o /tmp/twisk/libTwisk.so" );
             p.waitFor();
-            // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
-            // à reprendre éventuellement et à adapter à votre code
+
             BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
