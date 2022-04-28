@@ -27,5 +27,4 @@ public class FabriqueNumero {
         this.cptEtape = 0;
         this.cptSemaphore = 0;
     }
-
 }
