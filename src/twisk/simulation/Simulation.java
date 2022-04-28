@@ -9,14 +9,12 @@ public class Simulation {
     private KitC kitC;
     private int nbClients;
     private GestionnaireClients gestClients;
-    private int nbMonde;
 
     public Simulation() {
         kitC = new KitC();
         kitC.creerEnvironnement();
         nbClients = 5;
         gestClients = new GestionnaireClients(this.nbClients);
-        nbMonde = 0;
     }
 
     public native int[] start_simulation(int nbEtapes, int nbServices, int nbClients, int[] tabJetonsServices);
@@ -27,7 +25,7 @@ public class Simulation {
         kitC.creerFichier(monde.toC());
         kitC.compiler();
         kitC.construireLaLibrairie();
-        System.load("/tmp/twisk/libTwisk" + nbMonde +".so");
+        System.load("/tmp/twisk/libTwisk" + FabriqueNumero.getInstance().getNbMonde() +".so");
 
         System.out.println("\tMonde Simulé :");
         System.out.println(monde);
@@ -67,7 +65,7 @@ public class Simulation {
         while (client[(monde.nbEtapes() - 1) * (nbClient + 1)] < nbClient) {
             client = ou_sont_les_clients(monde.nbEtapes(), nbClient);    //Raffraichit le tableau avec la nouvelle position des clients
 
-            for (int i = 0; i < monde.nbEtapes()-1; i++) {      //Affichage des clients en fonction du nombre de clients dans l'activité (ou le guichet)
+            for (int i = 0; i < monde.nbEtapes(); i++) {      //Affichage des clients en fonction du nombre de clients dans l'activité (ou le guichet)
                 //Affichage de si i est un SAS ou une activité(ou guichet)
                 if (i == 0) {
                     System.out.print("Etape " + i + " (SasEntree): " + client[i] + " client : ");
@@ -101,16 +99,8 @@ public class Simulation {
         }
         gestClients.nettoyer();
         nettoyage();
-//        FabriqueNumero.getInstance().reset();
-    }
 
-    public void newMonde(int nbMonde){
-        this.nbMonde = nbMonde;
-        kitC.newMonde(nbMonde);
-    }
-
-    public int getNbMonde() {
-        return nbMonde;
+        FabriqueNumero.getInstance().reset();
     }
 
     public void setNbClients(int nbClient){

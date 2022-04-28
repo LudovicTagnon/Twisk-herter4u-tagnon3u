@@ -5,6 +5,7 @@ import twisk.monde.ActiviteRestreinte;
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
 import twisk.outils.ClassLoaderPerso;
+import twisk.outils.FabriqueNumero;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -70,7 +71,7 @@ public class ClientTwisk {
         return m;
     }
 
-    public static void lanceurClassLoader(Monde monde, int nbMonde) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    public static void lanceurClassLoader(Monde monde) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         ClientTwisk client = new ClientTwisk();
 
         ClassLoaderPerso classLoaderPerso = new ClassLoaderPerso(client.getClass().getClassLoader());
@@ -82,18 +83,15 @@ public class ClientTwisk {
         Method setNbClient = classe.getMethod("setNbClients", argNbClient);
         setNbClient.invoke(s, 3);
 
-        Class<?> argNbMonde = int.class ;
-        Method ajMonde = classe.getMethod("newMonde", argNbMonde);
-        ajMonde.invoke(s, nbMonde);
-
         Class<?> argSimuler = Monde.class ;
         Method simul = classe.getMethod("simuler", argSimuler);
-
         simul.invoke(s, monde);
+
+        FabriqueNumero.getInstance().setNbMonde();
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        lanceurClassLoader(monde1(), 0);
-        lanceurClassLoader(monde2(), 1);
+        lanceurClassLoader(monde1());
+        lanceurClassLoader(monde2());
     }
 }

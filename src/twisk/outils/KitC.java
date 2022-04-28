@@ -6,12 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class KitC {
-    private int nbMonde;
-
-    public KitC() {
-        this.nbMonde = 0;
-    }
-
     public void creerEnvironnement(){
         try {
             // création du répertoire twisk sous /tmp. Ne déclenche pas d’erreur si le répertoire existe déjà
@@ -82,7 +76,7 @@ public class KitC {
 
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process p = runtime.exec("gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/client.o /tmp/twisk/codeNatif.o -o /tmp/twisk/libTwisk" + this.nbMonde + ".so" );
+            Process p = runtime.exec("gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/client.o /tmp/twisk/codeNatif.o -o /tmp/twisk/libTwisk" + FabriqueNumero.getInstance().getNbMonde() + ".so" );
             p.waitFor();
 
             BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -98,9 +92,5 @@ public class KitC {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public void newMonde(int nbMonde){
-        this.nbMonde = nbMonde;
     }
 }
