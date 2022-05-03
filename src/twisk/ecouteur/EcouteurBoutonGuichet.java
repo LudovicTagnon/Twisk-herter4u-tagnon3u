@@ -4,16 +4,15 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import twisk.mondeIG.MondeIG;
 
-public class EcouteurSortie implements EventHandler {
+public class EcouteurBoutonGuichet implements EventHandler {
     private MondeIG mondeIG;
 
-    public EcouteurSortie(MondeIG mondeIG) {
+    public EcouteurBoutonGuichet(MondeIG mondeIG) {
         this.mondeIG = mondeIG;
     }
 
     @Override
     public void handle(Event event) {
-        this.mondeIG.changementSortie();
-        this.mondeIG.enleverTouteSelectionEtape();
+        mondeIG.ajouter("Guichet");
     }
 }

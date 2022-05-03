@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
-import twisk.ecouteur.EcouteurActivite;
+import twisk.ecouteur.EcouteurEtape;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
@@ -18,13 +18,19 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         mondeIG.ajouterObservateur(this);
         this.etapes = etapeIG;
 
-        this.label = new Label(this.etapes.getNom() + " (t = " + this.etapes.getDelai() + ", e-t = " + this.etapes.getEcartTemps() + ")");
-        this.label.setMinWidth(TailleComposants.getInstance().getTailleXAct());
+        if (this.etapes.estUneActivite()){
+            this.label = new Label(this.etapes.getNom() + " (t = " + this.etapes.getDelai() + ", e-t = " + this.etapes.getEcartTemps() + ")");
+            this.label.setMinWidth(TailleComposants.getInstance().getTailleXAct());
+        }else if(this.etapes.estUnGuichet()){
+            this.label = new Label(this.etapes.getNom() + " (Jetons = " + this.etapes.getNbJetons() + ")");
+            this.label.setMinWidth(TailleComposants.getInstance().getTailleXGui());
+        }
+
         this.label.setAlignment(Pos.CENTER);
         this.label.setMinHeight(17);
         this.label.setStyle("-fx-text-fill:white");
 
-        this.setOnMouseClicked(new EcouteurActivite(mondeIG, this.etapes));
+        this.setOnMouseClicked(new EcouteurEtape(mondeIG, this.etapes));
 
         this.setOnDragDetected(mouseEvent -> {
             Dragboard dragboard = this.startDragAndDrop(TransferMode.MOVE);

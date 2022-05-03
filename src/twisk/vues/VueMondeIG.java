@@ -75,15 +75,30 @@ public class VueMondeIG extends Pane implements Observateur {
         }
 
         for(EtapeIG etape : mondeIG){
-            VueEtapeIG vueEtapeIG = new VueActiviteIG(mondeIG, etape);
+            VueEtapeIG vueEtapeIG = null;
+            if(etape.estUneActivite()){
+                vueEtapeIG = new VueActiviteIG(mondeIG, etape);
 
-            TailleComposants tailleComposants = TailleComposants.getInstance();
+                TailleComposants tailleComposants = TailleComposants.getInstance();
 
-            vueEtapeIG.setMinWidth(tailleComposants.getTailleXAct());
-            vueEtapeIG.setMaxWidth(tailleComposants.getTailleXAct());
+                vueEtapeIG.setMinWidth(tailleComposants.getTailleXAct());
+                vueEtapeIG.setMaxWidth(tailleComposants.getTailleXAct());
 
-            vueEtapeIG.setMinHeight(tailleComposants.getTailleYAct());
-            vueEtapeIG.setMaxHeight(tailleComposants.getTailleYAct());
+                vueEtapeIG.setMinHeight(tailleComposants.getTailleYAct());
+                vueEtapeIG.setMaxHeight(tailleComposants.getTailleYAct());
+            } else if (etape.estUnGuichet()) {
+                vueEtapeIG = new VueGuichetIG(mondeIG, etape);
+
+                TailleComposants tailleComposants = TailleComposants.getInstance();
+
+                vueEtapeIG.setMinWidth(tailleComposants.getTailleXGui());
+                vueEtapeIG.setMaxWidth(tailleComposants.getTailleXGui());
+
+                vueEtapeIG.setMinHeight(tailleComposants.getTailleYGui());
+                vueEtapeIG.setMaxHeight(tailleComposants.getTailleYGui());
+            }
+
+
 
             if (this.mondeIG.estSelectionneeEtape(etape)){
                 vueEtapeIG.setStyle("-fx-background-color: #275461; -fx-border-color: #FFFFFF; -fx-background-radius: 3px, 3px, 0px, 0px; -fx-border-radius: 3 3 0 0;");

@@ -17,6 +17,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     protected int delai;
     protected int ecartTemps;
 
+    protected int nbJetons;
+
     protected ArrayList<PointDeControleIG> points;
 
     protected boolean estEntree;
@@ -83,17 +85,38 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         return estSortie;
     }
 
-    public void setEstEntree(boolean estEntree) {
-        this.estEntree = estEntree;
+    public void setEstEntree() {
+        if(!this.estEntree){
+            this.estEntree = true;
+            this.estSortie = false;
+        }else{
+            this.estEntree = false;
+        }
     }
 
-    public void setEstSortie(boolean estSortie) {
-        this.estSortie = estSortie;
+    public void setEstSortie() {
+        if(!this.estSortie){
+            this.estSortie = true;
+            this.estEntree = false;
+        }else{
+            this.estSortie = false;
+        }
     }
 
     public void setDelaiEcartTemps(int delai, int ecartTemps) {
         this.delai = delai;
         this.ecartTemps = ecartTemps;
+    }
+
+    public void setJeton(int nbJetons) {
+        this.nbJetons = nbJetons;
+    }
+
+    public boolean estUneActivite(){
+        return false;
+    }
+    public boolean estUnGuichet(){
+        return false;
     }
 
     public int getDelai() {
@@ -102,6 +125,10 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     public int getEcartTemps() {
         return ecartTemps;
+    }
+
+    public int getNbJetons() {
+        return nbJetons;
     }
 
     @Override

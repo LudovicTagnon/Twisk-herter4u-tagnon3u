@@ -4,6 +4,9 @@ public class TailleComposants {
     private int tailleXAct;
     private int tailleYAct;
 
+    private int tailleXGui;
+    private int tailleYGui;
+
     private int tailleEcranX;
     private int tailleEcranY;
 
@@ -18,6 +21,9 @@ public class TailleComposants {
     private TailleComposants(){
         this.tailleXAct = 160;
         this.tailleYAct = 75;
+
+        this.tailleXGui = 220;
+        this.tailleYGui= 40;
 
         this.tailleEcranX = 1200;
         this.tailleEcranY = 800;
@@ -43,5 +49,13 @@ public class TailleComposants {
 
     public int getRadiusCircle() {
         return radiusCircle;
+    }
+
+    public int getTailleXGui() {
+        return tailleXGui;
+    }
+
+    public int getTailleYGui() {
+        return tailleYGui;
     }
 }

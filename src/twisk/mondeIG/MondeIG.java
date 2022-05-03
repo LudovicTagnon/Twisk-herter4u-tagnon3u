@@ -42,8 +42,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.notifierObservateur();
     }
 
+    public EtapeIG getPremiereEtape(){
+        return this.etapeSelectionnes.get(0);
+    }
+
     public String getNomPremiereEtapeSelectionnee() {
-        return this.etapeSelectionnes.get(0).getNom();
+        return this.getPremiereEtape().getNom();
     }
 
     public String getIdentifiantPremiereEtapeSelectionnee() {
@@ -67,6 +71,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
             ActiviteIG activiteIG = new ActiviteIG("Activite " + idAct.substring(5) , idAct, tailleComposants.getTailleXAct(), tailleComposants.getTailleYAct());
             etapes.put(idAct, activiteIG);
+        } else if (type.equals("Guichet")) {
+            FabriqueIdentifiant fabId = FabriqueIdentifiant.getInstance();
+            String idGui = fabId.getIdentifiantGuichet();
+
+            TailleComposants tailleComposants = TailleComposants.getInstance();
+
+            GuichetIG guichetIG = new GuichetIG("Guichet " + idGui.substring(7) , idGui, tailleComposants.getTailleXGui(), tailleComposants.getTailleYGui());
+            etapes.put(idGui, guichetIG);
         }
         this.notifierObservateur();
     }
@@ -155,9 +167,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     }
 
     public boolean estSelectionneeArc(ArcIG arc){
-        for (int i = 0; i < this.arcSelectionnes.size(); i++) {
-            if (arc.getDepart().getEtapeRattachee().getIdentifiant().equals(this.arcSelectionnes.get(i).getDepart().getEtapeRattachee().getIdentifiant()) &&
-                    arc.getArrivee().getEtapeRattachee().getIdentifiant().equals(this.arcSelectionnes.get(i).getArrivee().getEtapeRattachee().getIdentifiant())){
+        for (ArcIG arcSelectionne : this.arcSelectionnes) {
+            if (arc.getDepart().getEtapeRattachee().getIdentifiant().equals(arcSelectionne.getDepart().getEtapeRattachee().getIdentifiant()) &&
+                    arc.getArrivee().getEtapeRattachee().getIdentifiant().equals(arcSelectionne.getArrivee().getEtapeRattachee().getIdentifiant())) {
                 return true;
             }
         }
@@ -185,21 +197,27 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     }
 
     public void changementEntree(){
-        for (int i = 0; i < this.etapeSelectionnes.size(); i++) {
-            this.etapeSelectionnes.get(i).setEstEntree(!this.etapeSelectionnes.get(i).getEstEntree());
+        for (EtapeIG etapeSelectionne : this.etapeSelectionnes) {
+            etapeSelectionne.setEstEntree();
         }
         this.notifierObservateur();
     }
 
     public void changementSortie(){
-        for (int i = 0; i < this.etapeSelectionnes.size(); i++) {
-            this.etapeSelectionnes.get(i).setEstSortie(!this.etapeSelectionnes.get(i).getEstSortie());
+        for (EtapeIG etapeSelectionne : this.etapeSelectionnes) {
+            etapeSelectionne.setEstSortie();
         }
         this.notifierObservateur();
     }
 
     public void setDelaiEcartTemps(int delai, int ecartTemps, String id){
         this.etapes.get(id).setDelaiEcartTemps(delai, ecartTemps);
+
+        this.notifierObservateur();
+    }
+
+    public void setJetons(int nbJetons, String id){
+        this.etapes.get(id).setJeton(nbJetons);
 
         this.notifierObservateur();
     }

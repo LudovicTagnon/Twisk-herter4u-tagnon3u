@@ -4,10 +4,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import twisk.mondeIG.MondeIG;
 
-public class EcouteurBouton implements EventHandler {
+public class EcouteurBoutonActivite implements EventHandler {
     private MondeIG mondeIG;
 
-    public EcouteurBouton(MondeIG mondeIG) {
+    public EcouteurBoutonActivite(MondeIG mondeIG) {
         this.mondeIG = mondeIG;
     }
 

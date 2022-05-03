@@ -33,11 +33,13 @@ public class VueMenu extends MenuBar implements Observateur{
 
         MenuItem delaiEcartTemps = new MenuItem("Ajouter delai");
         delaiEcartTemps.setOnAction(new EcouteurDelai(mondeIG));
+        MenuItem jetons = new MenuItem("Ajouter Jetons");
+        jetons.setOnAction(new EcouteurJetons(mondeIG));
 
         fichier.getItems().add(quitter);
         edition.getItems().addAll(suppSelection, rennomerSelection, effacerSelection);
         monde.getItems().addAll(entree, sortie);
-        parametre.getItems().add(delaiEcartTemps);
+        parametre.getItems().addAll(delaiEcartTemps, jetons);
 
         this.getMenus().addAll(fichier, edition, monde, parametre);
     }

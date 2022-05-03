@@ -14,5 +14,7 @@ public class EcouteurEntree implements EventHandler {
     @Override
     public void handle(Event event) {
         this.mondeIG.changementEntree();
+
+        this.mondeIG.enleverTouteSelectionEtape();
     }
 }

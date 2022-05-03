@@ -10,7 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import twisk.ecouteur.EcouteurBouton;
+import twisk.ecouteur.EcouteurBoutonActivite;
+import twisk.ecouteur.EcouteurBoutonGuichet;
 import twisk.mondeIG.MondeIG;
 
 public class VueOutils extends TilePane implements Observateur{
@@ -20,38 +21,45 @@ public class VueOutils extends TilePane implements Observateur{
 
         this.setBackground(new Background(new BackgroundFill(Color.web("#869DA3"), null, null)));
 
-        Button button = new Button("Ajouter");
-        button.setFont(new Font(15));
+        Button boutonActivite = new Button("Ajouter Activité");
+        boutonActivite.setFont(new Font(15));
 
         Tooltip tooltip = new Tooltip("Ajouter une activité");
         tooltip.setShowDelay(Duration.millis(250));
-        button.setTooltip(tooltip);
+        boutonActivite.setTooltip(tooltip);
 
-        button.setOnAction(new EcouteurBouton(monde));
+        boutonActivite.setOnAction(new EcouteurBoutonActivite(monde));
 
-        Rectangle[] ronds = new Rectangle[4];
+        Button boutonGuichet = new Button("Ajouter Guichet");
+        boutonGuichet.setFont(new Font(15));
 
-        for (int i = 0; i < ronds.length; i++) {
-            ronds[i] = new Rectangle(30, 20);
+        Tooltip tooltipGui = new Tooltip("Ajouter un guichet");
+        tooltip.setShowDelay(Duration.millis(250));
+        boutonGuichet.setTooltip(tooltipGui);
+
+        boutonGuichet.setOnAction(new EcouteurBoutonGuichet(monde));
+
+        Rectangle[] rectangles = new Rectangle[4];
+
+        for (int i = 0; i < rectangles.length; i++) {
+            rectangles[i] = new Rectangle(30, 20);
         }
 
-        ronds[0].setStyle("-fx-fill : #7ADEFA;");
-        ronds[1].setStyle("-fx-fill : #8F7AFA;");
-        ronds[2].setStyle("-fx-fill : #FAD77A;");
-        ronds[3].setStyle("-fx-fill : #82FA7A;");
+        rectangles[0].setStyle("-fx-fill : #7ADEFA;");
+        rectangles[1].setStyle("-fx-fill : #8F7AFA;");
+        rectangles[2].setStyle("-fx-fill : #FAD77A;");
 
-        Label[] canardEnchante = new Label[4];
+        Label[] legende = new Label[3];
 
-        canardEnchante[0] = new Label("Activité");
-        canardEnchante[1] = new Label("Entrée");
-        canardEnchante[2] = new Label("Sortie");
-        canardEnchante[3] = new Label("Entrée et Sortie");
+        legende[0] = new Label("Activité");
+        legende[1] = new Label("Entrée");
+        legende[2] = new Label("Sortie");
 
-        for (int i = 0; i < canardEnchante.length; i++) {
-            canardEnchante[i].setStyle("-fx-font-size: 15;-fx-font-weight: bold");
+        for (Label label : legende) {
+            label.setStyle("-fx-font-size: 15;-fx-font-weight: bold");
         }
 
-        this.getChildren().addAll(ronds[0], canardEnchante[0], ronds[1], canardEnchante[1], button, ronds[2], canardEnchante[2], ronds[3], canardEnchante[3]);
+        this.getChildren().addAll(boutonActivite, rectangles[0], legende[0], rectangles[1], legende[1], rectangles[2], legende[2], boutonGuichet);
     }
 
     @Override

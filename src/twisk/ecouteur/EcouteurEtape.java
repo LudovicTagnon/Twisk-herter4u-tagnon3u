@@ -5,11 +5,11 @@ import javafx.event.EventHandler;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 
-public class EcouteurActivite implements EventHandler {
+public class EcouteurEtape implements EventHandler {
     private MondeIG monde;
     private EtapeIG etape;
 
-    public EcouteurActivite(MondeIG monde, EtapeIG etape) {
+    public EcouteurEtape(MondeIG monde, EtapeIG etape) {
         this.monde = monde;
         this.etape = etape;
     }
