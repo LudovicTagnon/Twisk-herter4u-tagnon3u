@@ -1,0 +1,244 @@
+@startuml
+
+package javafx.event{
+    class EventHandler
+}
+
+package java.lang{
+    class Exception
+    class Iterable
+}
+
+package twisk.ecouteur{
+    class EcouteurEffacerSelection implements EventHandler{
+        + void handle(Event)
+    }
+
+    class EcouteurQuitter implements EventHandler{
+        + void handle(Event)
+    }
+
+    class EcouteurActivite implements EventHandler{
+        + void handle(Event)
+    }
+    class EcouteurSupprimerSelection implements EventHandler{
+        + void handle(Event)
+    }
+    class EcouteurRenommerSelection implements EventHandler{
+        + void handle(Event)
+    }
+    class EcouteurBouton implements EventHandler{
+        + void handle(Event)
+    }
+
+    class EcouteurArc implements EventHandler{
+        + void handle(Event)
+    }
+
+    class EcouteurEntree implements EventHandler{
+        + void handle(Event)
+    }
+
+    class EcouteurPointDeControle implements EventHandler{
+        + void handle(Event)
+    }
+
+    class EcouteurSortie implements EventHandler{
+        + void handle(Event)
+    }
+
+    class EcouteurDelai implements EventHandler{
+        + void handle(Event)
+    }
+}
+
+package twisk.exceptions{
+    class DelaiException extends TwiskException{
+    }
+
+    class ArgumentException extends TwiskException{
+    }
+
+    class TwiskException extends Exception{
+    }
+}
+
+package twisk.mondeIG{
+    class MondeIG extends SujetObserve implements Iterable{
+        - HashMap<String,EtapeIG> etapes
+        - ArrayList<ArcIG> arc
+        - ArrayList<EtapeIG> etapeSelectionnes
+        - ArrayList<ArcIG> arcSelectionnes
+        + PointDeControleIG getDepart()
+        + PointDeControleIG getArrivee()
+        + void setNomPremiereEtapeSelectionnee(String)
+        + String getNomPremiereEtapeSelectionnee()
+        + String getIdentifiantPremiereEtapeSelectionnee()
+        + void setDepart(PointDeControleIG)
+        + void setArrivee(PointDeControleIG)
+        + void ajouter(String)
+        + void ajouter(PointDeControleIG,PointDeControleIG)
+        + void setPosEtape(String,int,int)
+        + void ajouterSelectionEtape(EtapeIG)
+        + void enleverSelectionEtape(EtapeIG)
+        + void enleverTouteSelectionEtape()
+        + boolean estSelectionneeEtape(EtapeIG)
+        + int nbSelectionEtape()
+        + void supprimerEtape(EtapeIG)
+        + ArrayList<ArcIG> arcRattachee(EtapeIG)
+        + boolean estSelectionneeArc(ArcIG)
+        + void ajouterSelectionArc(ArcIG)
+        + void enleverSelectionArc(ArcIG)
+        + void supprimerArc(ArcIG)
+        + void enleverTouteSelectionArc()
+        + void changementEntree()
+        + void changementSortie()
+        + void setDelaiEcartTemps(int,int,String)
+        + Iterator<EtapeIG> iterator()
+        + Iterator<ArcIG> iteratorArc()
+        + Iterator<EtapeIG> iteratorEtapesSelectionnees()
+        + Iterator<ArcIG> iteratorArcSelectionnees()
+    }
+
+    class PointDeControleIG {
+        - int posCentreX
+        - int posCentreY
+        + EtapeIG getEtapeRattachee()
+        + int getPosCentreX()
+        + int getPosCentreY()
+        + String toString()
+    }
+
+    class ArcIG {
+        + PointDeControleIG getDepart()
+        + PointDeControleIG getArrivee()
+        + String toString()
+    }
+
+    class ActiviteIG extends EtapeIG{
+    }
+
+    abstract class EtapeIG implements Iterable{
+        # String nom
+        # String identifiant
+        # int posX
+        # int posY
+        # int largueur
+        # int hauteur
+        # int delai
+        # int ecartTemps
+        # ArrayList<PointDeControleIG> points
+        # boolean estEntree
+        # boolean estSortie
+        + String getIdentifiant()
+        + String getNom()
+        + void setNom(String)
+        + int getPosX()
+        + int getPosY()
+        + void suppPDC()
+        + void setPosPDC()
+        + void setPos(int,int)
+        + boolean getEstEntree()
+        + boolean getEstSortie()
+        + void setEstEntree(boolean)
+        + void setEstSortie(boolean)
+        + void setDelaiEcartTemps(int,int)
+        + int getDelai()
+        + int getEcartTemps()
+        + Iterator<PointDeControleIG> iterator()
+        + String toString()
+    }
+}
+
+package twisk.outils{
+    class FabriqueIdentifiant {
+        - int noEtape
+        + {static} FabriqueIdentifiant getInstance()
+        + String getIdentifiantEtape()
+    }
+
+    class TailleComposants {
+        - int tailleXAct
+        - int tailleYAct
+        - int tailleEcranX
+        - int tailleEcranY
+        - int radiusCircle
+        + {static} TailleComposants getInstance()
+        + int getTailleXAct()
+        + int getTailleYAct()
+        + int getTailleEcranX()
+        + int getTailleEcranY()
+        + int getRadiusCircle()
+    }
+
+    class SujetObserve {
+        - ArrayList<Observateur> o
+        + void ajouterObservateur(Observateur)
+        + void notifierObservateur()
+    }
+}
+
+package twisk.vues{
+    class VueMondeIG extends Pane implements Observateur{
+        + void reagir()
+    }
+
+    class VueArcIG extends Pane implements Observateur{
+        - Line ligne
+        - Polyline fleche
+        + void reagir()
+    }
+
+    class VueOutils extends TilePane implements Observateur{
+        + void reagir()
+    }
+
+    class VuePointDeControleIG extends Circle implements Observateur{
+        + void reagir()
+    }
+
+    interface Observateur{
+        ~ void reagir()
+    }
+
+    abstract class VueEtapeIG extends VBox implements Observateur{
+        # Label label
+    }
+
+    class VueActiviteIG extends VueEtapeIG implements Observateur{
+        + void reagir()
+    }
+
+    class VueMenu extends MenuBar implements Observateur{
+        + void reagir()
+    }
+}
+
+EcouteurArc --"1" ArcIG
+EcouteurArc --"1" MondeIG
+EcouteurBouton --"1" MondeIG
+EcouteurRenommerSelection --"1" MondeIG
+EcouteurSupprimerSelection --"1" MondeIG
+EcouteurActivite --"1" EtapeIG
+EcouteurActivite --"1" MondeIG
+EcouteurEffacerSelection --"1" MondeIG
+EcouteurDelai --"1" MondeIG
+EcouteurSortie --"1" MondeIG
+EcouteurEntree --"1" MondeIG
+EcouteurPointDeControle --"1" MondeIG
+EcouteurPointDeControle --"1" PointDeControleIG
+EcouteurPointDeControle --"1" VuePointDeControleIG
+
+MondeIG --"2" PointDeControleIG
+ArcIG --"2" PointDeControleIG
+PointDeControleIG --"1" EtapeIG
+
+TailleComposants --"1" TailleComposants : static
+FabriqueIdentifiant --"1" FabriqueIdentifiant : static
+
+VueArcIG --"1" ArcIG
+VueArcIG --"1" MondeIG
+VueEtapeIG --"1" EtapeIG
+VueMondeIG --"1" MondeIG
+
+@enduml
