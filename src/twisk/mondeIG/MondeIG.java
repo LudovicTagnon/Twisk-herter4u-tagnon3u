@@ -1,5 +1,7 @@
 package twisk.mondeIG;
 
+import twisk.exceptions.MondeException;
+import twisk.monde.Monde;
 import twisk.outils.SujetObserve;
 import twisk.exceptions.TwiskException;
 import twisk.outils.FabriqueIdentifiant;
@@ -62,7 +64,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.arrivee = arrivee;
     }
 
-    public void ajouter(String type){
+    public void ajouter(String type) {
         if(type.equals("Activité")){
             FabriqueIdentifiant fabId = FabriqueIdentifiant.getInstance();
             String idAct = fabId.getIdentifiantEtape();
@@ -80,6 +82,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             GuichetIG guichetIG = new GuichetIG("Guichet " + idGui.substring(7) , idGui, tailleComposants.getTailleXGui(), tailleComposants.getTailleYGui());
             etapes.put(idGui, guichetIG);
         }
+        System.out.println(etapes);
         this.notifierObservateur();
     }
 
@@ -111,6 +114,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         }
 
         this.depart = null;
+
+        pt1.getEtapeRattachee().ajouterSuc(pt2.getEtapeRattachee());
 
         this.notifierObservateur();
     }
@@ -187,6 +192,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     }
 
     public void supprimerArc(ArcIG arc){
+        arc.getDepart().getEtapeRattachee().enleverSuc(arc.getArrivee().getEtapeRattachee());
         this.arc.remove(arc);
         this.notifierObservateur();
     }
@@ -237,5 +243,37 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
     public Iterator<ArcIG> iteratorArcSelectionnees(){
         return this.arcSelectionnes.iterator();
+    }
+
+    public void simuler() throws MondeException {
+
+    }
+
+    private void verifierMondeIG() throws MondeException{
+
+        boolean flagEntree = false;
+        boolean flagSortie = false;
+
+
+        for (EtapeIG e: etapes.values()) {
+            if (e.estEntree){
+                if(flagEntree){
+                    throw new MondeException("Il ne doit y avoir qu'une seule entrée.");
+                }else{
+                    flagEntree = true;
+                }
+            }
+            if (e.estSortie){
+                flagSortie = true;
+            }
+        }
+        if(!flagEntree || !flagSortie){
+            throw new MondeException("Il doit y avoir 1 seule entrée et au moins 1 sortie.");
+        }
+    }
+
+    private Monde creerMonde(){
+        Monde monde = null;
+        return monde;
     }
 }

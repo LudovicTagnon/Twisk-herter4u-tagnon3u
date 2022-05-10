@@ -21,6 +21,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     protected ArrayList<PointDeControleIG> points;
 
+    protected ArrayList<EtapeIG> successeurs;
+
     protected boolean estEntree;
     protected boolean estSortie;
 
@@ -29,6 +31,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.identifiant = idf;
         this.largueur = larg;
         this.hauteur = haut;
+        this.successeurs = new ArrayList<>(5);
 
         Random r = new Random();
         this.posX = r.nextInt(TailleComposants.getInstance().getTailleEcranX() - larg);
@@ -129,6 +132,18 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     public int getNbJetons() {
         return nbJetons;
+    }
+
+    public void ajouterSuc(EtapeIG ... etapes){
+        for (int i = 0; i < etapes.length; i++) {
+            this.successeurs.add(etapes[i]);
+        }
+    }
+
+    public void enleverSuc(EtapeIG ... etapes){
+        for (int i = 0; i < etapes.length; i++) {
+            this.successeurs.remove(etapes[i]);
+        }
     }
 
     @Override
