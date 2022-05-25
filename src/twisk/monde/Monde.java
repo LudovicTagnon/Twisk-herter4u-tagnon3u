@@ -4,12 +4,12 @@ import java.util.Iterator;
 
 public class Monde implements Iterable<Etape>{
 
-    private SasEntree entree;
+    private SasEntree sasEntree;
     private GestionnaireEtapes lesEtapes;
-    private SasSortie sortie;
+    private SasSortie sasSortie;
 
     public Monde(){
-        this.entree = new SasEntree();
+        this.sasEntree = new SasEntree();
         this.lesEtapes = new GestionnaireEtapes();
     }
 
@@ -21,19 +21,18 @@ public class Monde implements Iterable<Etape>{
         return lesEtapes.getEtape(i);
     }
 
-    public SasEntree getEntree() {
-        return entree;
+    public SasEntree getSasEntree() {
+        return sasEntree;
     }
 
     public void aCommeEntree(Etape ... etapes){
-
-        this.entree.ajouterSuccesseur(etapes);
+        this.sasEntree.ajouterSuccesseur(etapes);
     }
 
     public void aCommeSortie(Etape ... etapes){
-        this.sortie = new SasSortie();
+        this.sasSortie = new SasSortie();
         for(Etape e : etapes) {
-            e.ajouterSuccesseur(this.sortie);
+            e.ajouterSuccesseur(this.sasSortie);
         }
     }
 
@@ -62,14 +61,14 @@ public class Monde implements Iterable<Etape>{
                 "#include <stdio.h>\n" +
                 "#include \"def.h\"\n");
 
-        ligne.append(entree.toDefine());
-        ligne.append(sortie.toDefine());
+        ligne.append(sasEntree.toDefine());
+        ligne.append(sasSortie.toDefine());
 
-        ligne.append(entree.toSem());
+        ligne.append(sasEntree.toSem());
 
         ligne.append("void simulation(int ids){\n");
 
-        ligne.append(entree.toC());
+        ligne.append(sasEntree.toC());
 
         ligne.append("}");
 
@@ -83,7 +82,7 @@ public class Monde implements Iterable<Etape>{
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder(this.entree + "\n" + this.sortie + "\n");
+        StringBuilder res = new StringBuilder(this.sasEntree + "\n" + this.sasSortie + "\n");
 
         for(Etape e : lesEtapes){
             res.append(e).append("\n");

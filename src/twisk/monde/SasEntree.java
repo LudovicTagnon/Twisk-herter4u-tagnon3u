@@ -8,10 +8,6 @@ public class SasEntree extends Activite{
         this.ecartTemps = 2;
     }
 
-    public boolean estUneEntree(){
-        return true;
-    }
-
     @Override
     public String toC() {
         ligne.append("\tentrer(" + nom + ");\n");

@@ -1,7 +1,10 @@
 package twisk.mondeIG;
 
 import twisk.exceptions.MondeException;
+import twisk.monde.Activite;
+import twisk.monde.Guichet;
 import twisk.monde.Monde;
+import twisk.outils.CorresondanceEtapes;
 import twisk.outils.SujetObserve;
 import twisk.exceptions.TwiskException;
 import twisk.outils.FabriqueIdentifiant;
@@ -21,12 +24,16 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private PointDeControleIG depart;
     private PointDeControleIG arrivee;
 
+    private CorresondanceEtapes correspondance;
+
     public MondeIG(){
         etapes = new HashMap<>();
 
         arc = new ArrayList<>();
         etapeSelectionnes = new ArrayList<>();
         arcSelectionnes = new ArrayList<>();
+
+
 
         this.ajouter("Activité");
     }
@@ -73,7 +80,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
             ActiviteIG activiteIG = new ActiviteIG("Activite " + idAct.substring(5) , idAct, tailleComposants.getTailleXAct(), tailleComposants.getTailleYAct());
             etapes.put(idAct, activiteIG);
-        } else if (type.equals("Guichet")) {
+            correspondance.ajouter(activiteIG, new Activite(idAct));
+        }
+        else if (type.equals("Guichet")) {
             FabriqueIdentifiant fabId = FabriqueIdentifiant.getInstance();
             String idGui = fabId.getIdentifiantGuichet();
 
@@ -81,7 +90,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
             GuichetIG guichetIG = new GuichetIG("Guichet " + idGui.substring(7) , idGui, tailleComposants.getTailleXGui(), tailleComposants.getTailleYGui());
             etapes.put(idGui, guichetIG);
+            correspondance.ajouter(guichetIG, new Guichet(idGui));
         }
+
         System.out.println(etapes);
         this.notifierObservateur();
     }
@@ -206,6 +217,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         for (EtapeIG etapeSelectionne : this.etapeSelectionnes) {
             etapeSelectionne.setEstEntree();
         }
+
         this.notifierObservateur();
     }
 
@@ -280,6 +292,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
     private Monde creerMonde(){
         Monde monde = null;
+        correspondance = new CorresondanceEtapes();
         return monde;
     }
 }

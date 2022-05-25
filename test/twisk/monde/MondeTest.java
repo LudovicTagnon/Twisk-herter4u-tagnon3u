@@ -36,7 +36,7 @@ class MondeTest {
     void aCommmeEntree() {
         m.aCommeEntree(g1, g2, g3);
 
-        System.out.println(m.getEntree().nbEtapes());
+        System.out.println(m.getSasEntree().nbEtapes());
     }
 
     @Test
