@@ -1,5 +1,6 @@
 package twisk.mondeIG;
 
+import twisk.monde.Etape;
 import twisk.outils.TailleComposants;
 
 import java.util.ArrayList;
@@ -121,6 +122,9 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public boolean estUnGuichet(){
         return false;
     }
+    public boolean estUneActiviteRestreinte(){
+        return false;
+    }
 
     public int getDelai() {
         return delai;
@@ -143,6 +147,33 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public void enleverSuc(EtapeIG ... etapes){
         for (int i = 0; i < etapes.length; i++) {
             this.successeurs.remove(etapes[i]);
+        }
+    }
+
+    public boolean aUneSortie(){
+        if(this.estSortie){
+            return true;
+        }else if(this.successeurs.size() == 0){
+            return false;
+        }else{
+            for(EtapeIG succ : successeurs){
+                return succ.aUneSortie();
+            }
+        }
+        return false;
+    }
+
+    public void ajoutActRestreinte(){
+        if(!this.estSortie){
+            for(EtapeIG succ : successeurs){
+                if(this.estUnGuichet()){
+                    if(succ.estUneActivite()){
+                        ActiviteIG actTmp = (ActiviteIG) succ;
+                        actTmp.setActRestreinte();
+                    }
+                }
+                succ.ajoutActRestreinte();
+            }
         }
     }
 

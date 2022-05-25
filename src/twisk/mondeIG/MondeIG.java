@@ -261,6 +261,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
                     throw new MondeException("Il ne doit y avoir qu'une seule entrée.");
                 }else{
                     flagEntree = true;
+
+                    if(!e.aUneSortie()){
+                        throw new MondeException("L'entrée doit être connecté à une sortie");
+                    }
+
+                    e.ajoutActRestreinte();
                 }
             }
             if (e.estSortie){
