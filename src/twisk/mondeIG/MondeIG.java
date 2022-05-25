@@ -1,15 +1,12 @@
 package twisk.mondeIG;
 
 import twisk.exceptions.MondeException;
-import twisk.monde.Activite;
-import twisk.monde.Guichet;
-import twisk.monde.Monde;
-import twisk.outils.CorresondanceEtapes;
-import twisk.outils.SujetObserve;
+import twisk.monde.*;
+import twisk.outils.*;
 import twisk.exceptions.TwiskException;
-import twisk.outils.FabriqueIdentifiant;
-import twisk.outils.TailleComposants;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,7 +21,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private PointDeControleIG depart;
     private PointDeControleIG arrivee;
 
-    private CorresondanceEtapes correspondance;
+    private Object simulation;
+    private Class<?> classeSimulation;
+    private ClassLoaderPerso clPerso;
+
+    private CorrespondanceEtapes correspondance;
 
     public MondeIG(){
         etapes = new HashMap<>();
@@ -80,7 +81,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
             ActiviteIG activiteIG = new ActiviteIG("Activite " + idAct.substring(5) , idAct, tailleComposants.getTailleXAct(), tailleComposants.getTailleYAct());
             etapes.put(idAct, activiteIG);
-            correspondance.ajouter(activiteIG, new Activite(idAct));
         }
         else if (type.equals("Guichet")) {
             FabriqueIdentifiant fabId = FabriqueIdentifiant.getInstance();
@@ -90,7 +90,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
             GuichetIG guichetIG = new GuichetIG("Guichet " + idGui.substring(7) , idGui, tailleComposants.getTailleXGui(), tailleComposants.getTailleYGui());
             etapes.put(idGui, guichetIG);
-            correspondance.ajouter(guichetIG, new Guichet(idGui));
         }
 
         System.out.println(etapes);
@@ -258,10 +257,42 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     }
 
     public void simuler() throws MondeException {
+        if(this.verifierMondeIG()==true){
+            Monde monde = this.creerMonde();
+
+            clPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
+
+            try {
+                classeSimulation = clPerso.loadClass("twisk.simulation.Simulation");
+                simulation = classeSimulation.getDeclaredConstructor().newInstance();
+                Method methode = classeSimulation.getMethod("simuler", Monde.class);
+                Method setNbClients = classeSimulation.getMethod("setNbClients", int.class);
+
+                setNbClients.invoke(simulation, 5);
+                methode.invoke(simulation, monde);
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
 
     }
 
-    private void verifierMondeIG() throws MondeException{
+    private boolean verifierMondeIG() throws MondeException{
+        // vérifie 3 conditions: 1) existe une seule entrée
+        // 2) il existe au moins 1 chemin entre l'entrée et la sortie
+        // 3) rendre restraintes les activités après les guichets
 
         boolean flagEntree = false;
         boolean flagSortie = false;
@@ -278,7 +309,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
                         throw new MondeException("L'entrée doit être connecté à une sortie");
                     }
 
-                    e.ajoutActRestreinte();
+                    e.ajoutActRestreinte(); //vérifie et transforme vers restreint
                 }
             }
             if (e.estSortie){
@@ -287,12 +318,37 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         }
         if(!flagEntree || !flagSortie){
             throw new MondeException("Il doit y avoir 1 seule entrée et au moins 1 sortie.");
+
         }
+        return flagEntree && flagSortie;
     }
 
-    private Monde creerMonde(){
-        Monde monde = null;
-        correspondance = new CorresondanceEtapes();
+    private Monde creerMonde() throws MondeException{
+        Monde monde = new Monde();
+        correspondance = new CorrespondanceEtapes();
+
+        for (EtapeIG eg: this){
+            Etape e = null;
+            if(eg.estUnGuichet()){
+                e = new Guichet(eg.identifiant);
+            }else if(eg.estUneActiviteRestreinte()){
+                e = new ActiviteRestreinte(eg.identifiant);
+            }else if(eg.estUneActivite()){
+                e = new Activite(eg.identifiant);
+            }
+
+            if(eg.estEntree){
+                monde.aCommeEntree(e);
+            }
+            else if(eg.estSortie){
+                monde.aCommeSortie(e);
+            }
+
+            monde.ajouter(e);
+            correspondance.ajouter(eg, e);
+
+        }
+
         return monde;
     }
 }

@@ -5,11 +5,11 @@ import twisk.mondeIG.EtapeIG;
 
 import java.util.HashMap;
 
-public class CorresondanceEtapes {
+public class CorrespondanceEtapes {
 
     private HashMap<EtapeIG, Etape> correspondance;
 
-    public CorresondanceEtapes() {
+    public CorrespondanceEtapes() {
         correspondance = new HashMap<>();
     }
 
@@ -24,6 +24,10 @@ public class CorresondanceEtapes {
     public void setEntree(EtapeIG eg){
         correspondance.get(eg).estUneEntree();
 
+    }
+
+    public void setSortie(EtapeIG eg){
+        correspondance.get(eg).estUneSortie();
     }
 
 
