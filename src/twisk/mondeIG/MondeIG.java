@@ -5,6 +5,7 @@ import twisk.monde.*;
 import twisk.outils.*;
 import twisk.exceptions.TwiskException;
 import twisk.simulation.Simulation;
+import twisk.vues.Observateur;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
+public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeIG>{
     private HashMap<String,EtapeIG> etapes;
 
     private ArrayList<ArcIG> arc;
@@ -349,5 +350,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         }
 
         return monde;
+    }
+
+    @Override
+    public void reagir() {
+
     }
 }

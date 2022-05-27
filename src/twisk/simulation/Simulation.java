@@ -4,8 +4,9 @@ import twisk.monde.Etape;
 import twisk.monde.Monde;
 import twisk.outils.FabriqueNumero;
 import twisk.outils.KitC;
+import twisk.vues.Observateur;
 
-public class Simulation {
+public class Simulation implements Observateur {
     private KitC kitC;
     private int nbClients;
     private GestionnaireClients gestClients;
@@ -107,5 +108,10 @@ public class Simulation {
 
     public void setNbClients(int nbClient){
         this.nbClients = nbClient;
+    }
+
+    @Override
+    public void reagir() {
+
     }
 }
