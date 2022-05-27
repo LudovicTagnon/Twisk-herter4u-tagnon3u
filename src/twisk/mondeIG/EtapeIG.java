@@ -188,4 +188,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
                 "nom='" + nom + '\'' +
                 '}';
     }
+
+    public int getLargueur() {
+        return largueur;
+    }
+
+    public int getHauteur() {
+        return hauteur;
+    }
 }

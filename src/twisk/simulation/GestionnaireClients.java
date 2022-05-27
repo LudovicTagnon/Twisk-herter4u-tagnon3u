@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GestionnaireClients implements Iterable<Client>{
+
     private ArrayList<Client> clients;
     private int nbClients;
 
@@ -52,5 +53,9 @@ public class GestionnaireClients implements Iterable<Client>{
     @Override
     public Iterator<Client> iterator() {
         return clients.iterator();
+    }
+
+    public ArrayList<Client> getClients() {
+        return clients;
     }
 }

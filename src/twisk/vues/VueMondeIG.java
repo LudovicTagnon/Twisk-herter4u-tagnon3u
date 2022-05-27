@@ -7,11 +7,14 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import twisk.mondeIG.ArcIG;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.mondeIG.PointDeControleIG;
 import twisk.outils.TailleComposants;
+import twisk.simulation.Client;
+import twisk.simulation.Simulation;
 
 import java.util.Iterator;
 
@@ -114,5 +117,22 @@ public class VueMondeIG extends Pane implements Observateur {
             }
             this.getChildren().add(vueEtapeIG);
         }
+
+
+        while (mondeIG.iteratorClient().hasNext()){
+            Client client = mondeIG.iteratorClient().next();
+            for (Iterator<EtapeIG> iter = mondeIG.iterator(); iter.hasNext(); ) {
+                EtapeIG etapeIG = iter.next();
+                if(client.getEtape().getNom()==etapeIG.getNom()){
+                    Circle circle = new Circle(20, etapeIG.getPosX()+etapeIG.getLargueur()/2,etapeIG.getPosY()+etapeIG.getHauteur()/2);
+                    circle.setStrokeWidth(5);
+                    circle.setStroke(Color.RED);
+                    this.getChildren().add(circle);
+                }
+            }
+        }
+        //Circle circle = new Circle(20, 50,50);
+        //this.mondeIG.getClasseSimulation().getMethod("getClients",null);
+
     }
 }

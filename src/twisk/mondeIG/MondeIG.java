@@ -1,9 +1,12 @@
 package twisk.mondeIG;
 
+import javafx.scene.shape.Circle;
 import twisk.exceptions.MondeException;
 import twisk.monde.*;
 import twisk.outils.*;
 import twisk.exceptions.TwiskException;
+import twisk.simulation.Client;
+import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 
@@ -14,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeIG>{
+
     private HashMap<String,EtapeIG> etapes;
 
     private ArrayList<ArcIG> arc;
@@ -25,9 +29,11 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
 
     private Object simulation;
     private Class<?> classeSimulation;
+
     private ClassLoaderPerso clPerso;
 
     private CorrespondanceEtapes correspondance;
+
 
     public MondeIG(){
         etapes = new HashMap<>();
@@ -258,6 +264,23 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         return this.arcSelectionnes.iterator();
     }
 
+    public Iterator<Client> iteratorClient(){
+        GestionnaireClients ge = null;
+        try{
+            Method methode = classeSimulation.getMethod("getGestClients()");
+            ge = (GestionnaireClients) methode.invoke(simulation);
+        }
+        catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return ge.iterator();
+    }
+
     public void simuler() throws MondeException {
         if(this.verifierMondeIG()){
             Monde monde = this.creerMonde();
@@ -346,14 +369,25 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
 
             monde.ajouter(e);
             correspondance.ajouter(eg, e);
-
         }
-
         return monde;
     }
 
     @Override
     public void reagir() {
+        this.notifierObservateur();
+    }
 
+    public Class<?> getClasseSimulation() {
+        return classeSimulation;
+    }
+
+
+    public HashMap<String, EtapeIG> getEtapes() {
+        return etapes;
+    }
+
+    public CorrespondanceEtapes getCorrespondance() {
+        return correspondance;
     }
 }
