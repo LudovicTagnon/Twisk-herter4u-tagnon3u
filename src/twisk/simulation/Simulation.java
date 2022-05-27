@@ -25,6 +25,8 @@ public class Simulation {
         kitC.creerFichier(monde.toC());
         kitC.compiler();
         kitC.construireLaLibrairie();
+
+        System.out.println(FabriqueNumero.getInstance().getNbMonde());
         System.load("/tmp/twisk/libTwisk" + FabriqueNumero.getInstance().getNbMonde() +".so");
 
         System.out.println("\tMonde Simulé :");

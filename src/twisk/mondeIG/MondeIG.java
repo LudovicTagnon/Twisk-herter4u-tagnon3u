@@ -4,6 +4,7 @@ import twisk.exceptions.MondeException;
 import twisk.monde.*;
 import twisk.outils.*;
 import twisk.exceptions.TwiskException;
+import twisk.simulation.Simulation;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -257,7 +258,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     }
 
     public void simuler() throws MondeException {
-        if(this.verifierMondeIG()==true){
+        if(this.verifierMondeIG()){
             Monde monde = this.creerMonde();
 
             clPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
@@ -284,15 +285,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             }
 
         }
-
-
-
     }
 
     private boolean verifierMondeIG() throws MondeException{
         // vérifie 3 conditions: 1) existe une seule entrée
         // 2) il existe au moins 1 chemin entre l'entrée et la sortie
-        // 3) rendre restraintes les activités après les guichets
+        // 3) rendre restreintes les activités après les guichets
 
         boolean flagEntree = false;
         boolean flagSortie = false;
@@ -328,6 +326,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         correspondance = new CorrespondanceEtapes();
 
         for (EtapeIG eg: this){
+            System.out.println(eg);
             Etape e = null;
             if(eg.estUnGuichet()){
                 e = new Guichet(eg.identifiant);

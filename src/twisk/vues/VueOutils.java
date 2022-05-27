@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import twisk.ecouteur.EcouteurBoutonActivite;
 import twisk.ecouteur.EcouteurBoutonGuichet;
+import twisk.ecouteur.EcouteurBoutonPlay;
 import twisk.mondeIG.MondeIG;
 
 public class VueOutils extends TilePane implements Observateur{
@@ -66,6 +67,8 @@ public class VueOutils extends TilePane implements Observateur{
         imageBoutonPlay.setFitHeight(70);
 
         play.setGraphic(imageBoutonPlay);
+
+        play.setOnAction(new EcouteurBoutonPlay(monde));
 
         this.getChildren().addAll(boutonActivite, rectangles[0], legende[0], play, rectangles[1], legende[1], boutonGuichet);
     }

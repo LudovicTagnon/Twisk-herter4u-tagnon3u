@@ -1,10 +1,17 @@
 package twisk.vues;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import twisk.ecouteur.*;
 import twisk.mondeIG.MondeIG;
+
+import javax.swing.*;
 
 public class VueMenu extends MenuBar implements Observateur{
 
@@ -28,8 +35,11 @@ public class VueMenu extends MenuBar implements Observateur{
 
         MenuItem entree = new MenuItem("Entrée");
         entree.setOnAction(new EcouteurEntree(mondeIG));
+        entree.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.ALT_DOWN));
+
         MenuItem sortie = new MenuItem("Sortie");
         sortie.setOnAction(new EcouteurSortie(mondeIG));
+        sortie.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN));
 
         MenuItem delaiEcartTemps = new MenuItem("Ajouter delai");
         delaiEcartTemps.setOnAction(new EcouteurDelai(mondeIG));
