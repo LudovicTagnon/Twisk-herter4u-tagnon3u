@@ -3,6 +3,8 @@ package twisk.vues;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.TilePane;
@@ -39,27 +41,33 @@ public class VueOutils extends TilePane implements Observateur{
 
         boutonGuichet.setOnAction(new EcouteurBoutonGuichet(monde));
 
-        Rectangle[] rectangles = new Rectangle[4];
+        Rectangle[] rectangles = new Rectangle[2];
 
         for (int i = 0; i < rectangles.length; i++) {
             rectangles[i] = new Rectangle(30, 20);
         }
 
-        rectangles[0].setStyle("-fx-fill : #7ADEFA;");
-        rectangles[1].setStyle("-fx-fill : #8F7AFA;");
-        rectangles[2].setStyle("-fx-fill : #FAD77A;");
+        rectangles[0].setStyle("-fx-fill : #8F7AFA;");
+        rectangles[1].setStyle("-fx-fill : #FAD77A;");
 
-        Label[] legende = new Label[3];
-
-        legende[0] = new Label("Activité");
-        legende[1] = new Label("Entrée");
-        legende[2] = new Label("Sortie");
+        Label[] legende = new Label[2];
+        legende[0] = new Label("Entrée");
+        legende[1] = new Label("Sortie");
 
         for (Label label : legende) {
             label.setStyle("-fx-font-size: 15;-fx-font-weight: bold");
         }
 
-        this.getChildren().addAll(boutonActivite, rectangles[0], legende[0], rectangles[1], legende[1], rectangles[2], legende[2], boutonGuichet);
+        Button play = new Button();
+        play.setBackground(Background.EMPTY);
+
+        ImageView imageBoutonPlay = new ImageView(new Image("/image/boutonPlay.png"));
+        imageBoutonPlay.setFitWidth(70);
+        imageBoutonPlay.setFitHeight(70);
+
+        play.setGraphic(imageBoutonPlay);
+
+        this.getChildren().addAll(boutonActivite, rectangles[0], legende[0], play, rectangles[1], legende[1], boutonGuichet);
     }
 
     @Override
