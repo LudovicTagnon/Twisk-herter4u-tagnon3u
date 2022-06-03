@@ -34,6 +34,8 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
 
     private CorrespondanceEtapes correspondance;
 
+    private boolean simLance;
+
 
     public MondeIG(){
         etapes = new HashMap<>();
@@ -42,7 +44,7 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         etapeSelectionnes = new ArrayList<>();
         arcSelectionnes = new ArrayList<>();
 
-
+        simLance = false;
 
         this.ajouter("Activité");
     }
@@ -283,6 +285,7 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
 
     public void simuler() throws MondeException {
         if(this.verifierMondeIG()){
+            this.simLance = true;
             Monde monde = this.creerMonde();
 
             clPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
@@ -295,6 +298,7 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
 
                 setNbClients.invoke(simulation, 5);
                 methode.invoke(simulation, monde);
+                this.simLance = false;
 
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -382,6 +386,9 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         return classeSimulation;
     }
 
+    public boolean isSimLance() {
+        return simLance;
+    }
 
     public HashMap<String, EtapeIG> getEtapes() {
         return etapes;

@@ -62,7 +62,7 @@ public class VueOutils extends TilePane implements Observateur{
         Button play = new Button();
         play.setBackground(Background.EMPTY);
 
-        ImageView imageBoutonPlay = new ImageView(new Image("/image/boutonPlay.png"));
+        ImageView imageBoutonPlay = new ImageView(new Image(String.valueOf(VueOutils.class.getResource("/image/boutonPlay.png"))));
         imageBoutonPlay.setFitWidth(70);
         imageBoutonPlay.setFitHeight(70);
 
