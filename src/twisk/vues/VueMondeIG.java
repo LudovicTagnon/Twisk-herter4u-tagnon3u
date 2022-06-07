@@ -133,16 +133,20 @@ public class VueMondeIG extends Pane implements Observateur {
                 for (Iterator<EtapeIG> iter = mondeIG.iterator(); iter.hasNext(); ) {
                     EtapeIG etapeIG = iter.next();
                     if(client.getEtape().getNom().equals(etapeIG.getNom())){
-                        Circle circle = new Circle(20, etapeIG.getPosX()+etapeIG.getLargueur()/2,etapeIG.getPosY()+etapeIG.getHauteur()/2);
+                        Circle circle = new Circle(20, etapeIG.getPosX()+ etapeIG.getLargueur()/2,etapeIG.getPosY()+etapeIG.getHauteur()/2);
                         circle.setStrokeWidth(5);
                         circle.setStroke(Color.RED);
                         this.getChildren().add(circle);
                     }
                 }
             }
+            Circle circle = new Circle(20, 50,50);
+            try {
+                this.mondeIG.getClasseSimulation().getMethod("getGestClients",null);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
         }
-        //Circle circle = new Circle(20, 50,50);
-        //this.mondeIG.getClasseSimulation().getMethod("getClients",null);
 
     }
 }
