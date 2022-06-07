@@ -6,7 +6,16 @@ import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
 
+/**
+ * Class VueGuichetIG.
+ */
 public class VueGuichetIG extends VueEtapeIG implements Observateur{
+    /**
+     * Instantiates a new VueGuichetIG.
+     *
+     * @param mondeIG Le monde
+     * @param etapeIG L'etape
+     */
     public VueGuichetIG(MondeIG mondeIG, EtapeIG etapeIG) {
         super(mondeIG, etapeIG);
 

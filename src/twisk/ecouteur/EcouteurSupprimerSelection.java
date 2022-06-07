@@ -9,9 +9,17 @@ import twisk.mondeIG.MondeIG;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * The type Ecouteur supprimer selection.
+ */
 public class EcouteurSupprimerSelection implements EventHandler {
     private MondeIG monde;
 
+    /**
+     * Instantiates a new Ecouteur supprimer selection.
+     *
+     * @param monde the monde
+     */
     public EcouteurSupprimerSelection(MondeIG monde) {
         this.monde = monde;
     }

@@ -14,13 +14,20 @@ import twisk.mondeIG.MondeIG;
 import twisk.mondeIG.PointDeControleIG;
 import twisk.outils.TailleComposants;
 import twisk.simulation.Client;
-import twisk.simulation.Simulation;
 
 import java.util.Iterator;
 
+/**
+ * Class VueMondeIG.
+ */
 public class VueMondeIG extends Pane implements Observateur {
     private MondeIG mondeIG;
 
+    /**
+     * Instantiates a new VueMondeIG.
+     *
+     * @param mondeIG Le monde
+     */
     public VueMondeIG(MondeIG mondeIG){
         mondeIG.ajouterObservateur(this);
         this.mondeIG = mondeIG;
@@ -51,11 +58,13 @@ public class VueMondeIG extends Pane implements Observateur {
             try {
                 Dragboard dragBroard = dragEvent.getDragboard();
                 mondeIG.setPosEtape(dragBroard.getString(), (int) dragEvent.getX(), (int) dragEvent.getY());
+
                 success = true;
             } catch (Exception ignored) {
             } finally {
                 dragEvent.setDropCompleted(success);
                 dragEvent.consume();
+                this.mondeIG.notifierObservateur();
             }
         });
 

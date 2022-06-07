@@ -5,13 +5,18 @@ import twisk.monde.Monde;
 import twisk.outils.FabriqueNumero;
 import twisk.outils.KitC;
 import twisk.outils.SujetObserve;
-import twisk.vues.Observateur;
 
+/**
+ * Class Simulation.
+ */
 public class Simulation extends SujetObserve {
     private KitC kitC;
     private int nbClients;
     private GestionnaireClients gestClients;
 
+    /**
+     * Instantiates a new Simulation.
+     */
     public Simulation() {
         kitC = new KitC();
         kitC.creerEnvironnement();
@@ -19,10 +24,36 @@ public class Simulation extends SujetObserve {
         gestClients = new GestionnaireClients(this.nbClients);
     }
 
+    /**
+     * Start simulation int [ ].
+     *
+     * @param nbEtapes          Le nb etapes
+     * @param nbServices        Le nb services
+     * @param nbClients         Le nb clients
+     * @param tabJetonsServices Le tab jetons services
+     * @return Le int [ ]
+     */
     public native int[] start_simulation(int nbEtapes, int nbServices, int nbClients, int[] tabJetonsServices);
+
+    /**
+     * Ou sont les clients int [ ].
+     *
+     * @param nbEtapes  Le nb etapes
+     * @param nbClients Le nb clients
+     * @return Le int [ ]
+     */
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
+
+    /**
+     * Nettoyage.
+     */
     public native void nettoyage();
 
+    /**
+     * Simuler.
+     *
+     * @param monde Le monde
+     */
     public void simuler(Monde monde) {
         kitC.creerFichier(monde.toC());
         kitC.compiler();
@@ -107,10 +138,20 @@ public class Simulation extends SujetObserve {
         FabriqueNumero.getInstance().reset();
     }
 
+    /**
+     * Set nb clients.
+     *
+     * @param nbClient Le nb client
+     */
     public void setNbClients(int nbClient){
         this.nbClients = nbClient;
     }
 
+    /**
+     * Gets gest clients.
+     *
+     * @return Le gest clients
+     */
     public GestionnaireClients getGestClients() {
         return gestClients;
     }

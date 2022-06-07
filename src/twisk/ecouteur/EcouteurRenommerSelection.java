@@ -6,9 +6,17 @@ import javafx.scene.control.TextInputDialog;
 import twisk.exceptions.TwiskException;
 import twisk.mondeIG.MondeIG;
 
+/**
+ * The type Ecouteur renommer selection.
+ */
 public class EcouteurRenommerSelection implements EventHandler {
     private MondeIG monde;
 
+    /**
+     * Instantiates a new Ecouteur renommer selection.
+     *
+     * @param monde the monde
+     */
     public EcouteurRenommerSelection(MondeIG monde) {
         this.monde = monde;
     }

@@ -2,19 +2,27 @@ package twisk.vues;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
 import twisk.ecouteur.EcouteurArc;
 import twisk.mondeIG.ArcIG;
 import twisk.mondeIG.MondeIG;
 
+/**
+ * Class VueArcIG.
+ */
 public class VueArcIG extends Pane implements Observateur{
     private Line ligne;
     private Polyline fleche;
     private ArcIG arcIG;
     private MondeIG monde;
 
+    /**
+     * Instantiates a new VueArcIG.
+     *
+     * @param monde Le monde
+     * @param arc   L'arc
+     */
     public VueArcIG(MondeIG monde, ArcIG arc){
         monde.ajouterObservateur(this);
 

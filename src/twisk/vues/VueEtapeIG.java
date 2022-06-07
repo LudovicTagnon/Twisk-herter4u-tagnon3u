@@ -3,17 +3,34 @@ package twisk.vues;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import twisk.ecouteur.EcouteurEtape;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
 
+/**
+ * Class VueEtapeIG.
+ */
 public abstract class VueEtapeIG extends VBox implements Observateur {
+    /**
+     * Les étapes.
+     */
     protected EtapeIG etapes;
+    /**
+     * Le Label.
+     */
     protected Label label;
 
+    /**
+     * Instantiates a new VueEtapeIG.
+     *
+     * @param mondeIG Le monde
+     * @param etapeIG L'etape
+     */
     public VueEtapeIG(MondeIG mondeIG, EtapeIG etapeIG){
         mondeIG.ajouterObservateur(this);
         this.etapes = etapeIG;

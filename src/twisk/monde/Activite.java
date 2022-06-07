@@ -1,10 +1,24 @@
 package twisk.monde;
 
+/**
+ * Class Activite.
+ */
 public class Activite extends Etape{
 
+    /**
+     * The Temps.
+     */
     protected int temps;
+    /**
+     * The Ecart temps.
+     */
     protected int ecartTemps;
 
+    /**
+     * Instantiates a new Activite.
+     *
+     * @param nom the nom
+     */
     public Activite(String nom) {
         super(nom);
         this.temps = 5;
@@ -12,6 +26,13 @@ public class Activite extends Etape{
     }
 
 
+    /**
+     * Instantiates a new Activite.
+     *
+     * @param nom        the nom
+     * @param temps      the temps
+     * @param ecartTemps the ecart temps
+     */
     public Activite(String nom, int temps, int ecartTemps) {
         super(nom);
         this.temps = temps;
@@ -25,7 +46,7 @@ public class Activite extends Etape{
     @Override
     public String toDefine() {
         for(Etape suivant : gestSucc){
-            ligneDefine.append("#define " + this.changementNom() + " " + this.cptEtape + "\n" );
+            ligneDefine.append("#define ").append(this.changementNom()).append(" ").append(this.cptEtape).append("\n");
             ligneDefine.append(suivant.toDefine());
         }
         return String.valueOf(ligneDefine);
@@ -34,9 +55,9 @@ public class Activite extends Etape{
     @Override
     public String toC(){
         for(Etape suivant : gestSucc){
-            ligne.append( "\ttransfert(" + this.changementNom() + ", " + suivant.changementNom() + ");\n" );
+            ligne.append("\ttransfert(").append(this.changementNom()).append(", ").append(suivant.changementNom()).append(");\n");
             if(!suivant.estUnGuichet() && !suivant.estUneSortie()){
-                ligne.append("\tdelai(" + suivant.getTemps() + ", " + suivant.getEcartTemps() + ");\n");
+                ligne.append("\tdelai(").append(suivant.getTemps()).append(", ").append(suivant.getEcartTemps()).append(");\n");
             }
             ligne.append(suivant.toC());
         }

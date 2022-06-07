@@ -11,6 +11,9 @@ import twisk.vues.VueMenu;
 import twisk.vues.VueMondeIG;
 import twisk.vues.VueOutils;
 
+/**
+ * Main.
+ */
 public class MainTwisk extends Application {
     @Override
     public void start(Stage stage) {
@@ -33,6 +36,11 @@ public class MainTwisk extends Application {
         stage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

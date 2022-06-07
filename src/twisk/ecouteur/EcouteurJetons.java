@@ -7,9 +7,17 @@ import twisk.exceptions.ArgumentException;
 import twisk.exceptions.DelaiException;
 import twisk.mondeIG.MondeIG;
 
+/**
+ * Class Ecouteur jetons.
+ */
 public class EcouteurJetons implements EventHandler {
     private MondeIG mondeIG;
 
+    /**
+     * Instantiates a new Ecouteur jetons.
+     *
+     * @param monde the monde
+     */
     public EcouteurJetons(MondeIG monde) {
         this.mondeIG = monde;
     }

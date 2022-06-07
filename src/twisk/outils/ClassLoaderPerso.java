@@ -5,8 +5,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Class Class loader perso.
+ */
 public class ClassLoaderPerso extends ClassLoader {
 
+    /**
+     * Instantiates a new Class loader perso.
+     *
+     * @param parent the parent
+     */
     public ClassLoaderPerso(ClassLoader parent) {
         super(parent);
     }

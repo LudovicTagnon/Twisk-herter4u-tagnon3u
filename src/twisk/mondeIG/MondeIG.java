@@ -1,13 +1,11 @@
 package twisk.mondeIG;
 
-import javafx.scene.shape.Circle;
 import twisk.exceptions.MondeException;
+import twisk.exceptions.TwiskException;
 import twisk.monde.*;
 import twisk.outils.*;
-import twisk.exceptions.TwiskException;
 import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
-import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 
 import java.lang.reflect.InvocationTargetException;
@@ -16,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * Class Monde ig.
+ */
 public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeIG>{
 
     private HashMap<String,EtapeIG> etapes;
@@ -37,6 +38,9 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
     private boolean simLance;
 
 
+    /**
+     * Instantiates a new Monde ig.
+     */
     public MondeIG(){
         etapes = new HashMap<>();
 
@@ -49,39 +53,84 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         this.ajouter("Activité");
     }
 
+    /**
+     * Gets depart.
+     *
+     * @return the depart
+     */
     public PointDeControleIG getDepart() {
         return depart;
     }
 
+    /**
+     * Gets arrivee.
+     *
+     * @return the arrivee
+     */
     public PointDeControleIG getArrivee() {
         return arrivee;
     }
 
+    /**
+     * Sets nom premiere etape selectionnee.
+     *
+     * @param nom the nom
+     */
     public void setNomPremiereEtapeSelectionnee(String nom) {
         this.etapeSelectionnes.get(0).setNom(nom);
         this.notifierObservateur();
     }
 
+    /**
+     * Get premiere etape etape ig.
+     *
+     * @return the etape ig
+     */
     public EtapeIG getPremiereEtape(){
         return this.etapeSelectionnes.get(0);
     }
 
+    /**
+     * Gets nom premiere etape selectionnee.
+     *
+     * @return the nom premiere etape selectionnee
+     */
     public String getNomPremiereEtapeSelectionnee() {
         return this.getPremiereEtape().getNom();
     }
 
+    /**
+     * Gets identifiant premiere etape selectionnee.
+     *
+     * @return the identifiant premiere etape selectionnee
+     */
     public String getIdentifiantPremiereEtapeSelectionnee() {
         return this.etapeSelectionnes.get(0).getIdentifiant();
     }
 
+    /**
+     * Sets depart.
+     *
+     * @param depart the depart
+     */
     public void setDepart(PointDeControleIG depart) {
         this.depart = depart;
     }
 
+    /**
+     * Sets arrivee.
+     *
+     * @param arrivee the arrivee
+     */
     public void setArrivee(PointDeControleIG arrivee) {
         this.arrivee = arrivee;
     }
 
+    /**
+     * Ajouter.
+     *
+     * @param type the type
+     */
     public void ajouter(String type) {
         if(type.equals("Activité")){
             FabriqueIdentifiant fabId = FabriqueIdentifiant.getInstance();
@@ -102,10 +151,16 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
             etapes.put(idGui, guichetIG);
         }
 
-        System.out.println(etapes);
         this.notifierObservateur();
     }
 
+    /**
+     * Ajouter.
+     *
+     * @param pt1 the pt 1
+     * @param pt2 the pt 2
+     * @throws TwiskException the twisk exception
+     */
     public void ajouter(PointDeControleIG pt1, PointDeControleIG pt2) throws TwiskException {
         this.depart = pt1;
         this.arrivee = pt2;
@@ -140,26 +195,52 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         this.notifierObservateur();
     }
 
+    /**
+     * Set pos etape.
+     *
+     * @param id   the id
+     * @param posX the pos x
+     * @param posY the pos y
+     */
     public void setPosEtape(String id, int posX, int posY){
         this.etapes.get(id).setPos(posX, posY);
         this.notifierObservateur();
     }
 
+    /**
+     * Ajouter selection etape.
+     *
+     * @param etapeIG the etape ig
+     */
     public void ajouterSelectionEtape(EtapeIG etapeIG){
         this.etapeSelectionnes.add(etapeIG);
         this.notifierObservateur();
     }
 
+    /**
+     * Enlever selection etape.
+     *
+     * @param etapeIG the etape ig
+     */
     public void enleverSelectionEtape(EtapeIG etapeIG){
         this.etapeSelectionnes.remove(etapeIG);
         this.notifierObservateur();
     }
 
+    /**
+     * Enlever toute selection etape.
+     */
     public void enleverTouteSelectionEtape(){
         this.etapeSelectionnes.clear();
         this.notifierObservateur();
     }
 
+    /**
+     * Est selectionnee etape boolean.
+     *
+     * @param etapeIG the etape ig
+     * @return the boolean
+     */
     public boolean estSelectionneeEtape(EtapeIG etapeIG){
         for (EtapeIG etapeSelectionne : this.etapeSelectionnes) {
             if (etapeSelectionne.getIdentifiant().equals(etapeIG.getIdentifiant())) {
@@ -169,15 +250,31 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         return false;
     }
 
+    /**
+     * Nb selection etape int.
+     *
+     * @return the int
+     */
     public int nbSelectionEtape(){
         return this.etapeSelectionnes.size();
     }
 
+    /**
+     * Supprimer etape.
+     *
+     * @param etapeIG the etape ig
+     */
     public void supprimerEtape(EtapeIG etapeIG){
         this.etapes.remove(etapeIG.getIdentifiant());
         this.notifierObservateur();
     }
 
+    /**
+     * Arc rattachee array list.
+     *
+     * @param etape the etape
+     * @return the array list
+     */
     public ArrayList<ArcIG> arcRattachee(EtapeIG etape){
         ArrayList<ArcIG> listArc = new ArrayList<>();
         for (ArcIG arcIG : this.arc) {
@@ -191,6 +288,12 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         return  listArc;
     }
 
+    /**
+     * Est selectionnee arc boolean.
+     *
+     * @param arc the arc
+     * @return the boolean
+     */
     public boolean estSelectionneeArc(ArcIG arc){
         for (ArcIG arcSelectionne : this.arcSelectionnes) {
             if (arc.getDepart().getEtapeRattachee().getIdentifiant().equals(arcSelectionne.getDepart().getEtapeRattachee().getIdentifiant()) &&
@@ -201,27 +304,48 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         return false;
     }
 
+    /**
+     * Ajouter selection arc.
+     *
+     * @param arc the arc
+     */
     public void ajouterSelectionArc(ArcIG arc){
         this.arcSelectionnes.add(arc);
         this.notifierObservateur();
     }
 
+    /**
+     * Enlever selection arc.
+     *
+     * @param arc the arc
+     */
     public void enleverSelectionArc(ArcIG arc) {
         this.arcSelectionnes.remove(arc);
         this.notifierObservateur();
     }
 
+    /**
+     * Supprimer arc.
+     *
+     * @param arc the arc
+     */
     public void supprimerArc(ArcIG arc){
         arc.getDepart().getEtapeRattachee().enleverSuc(arc.getArrivee().getEtapeRattachee());
         this.arc.remove(arc);
         this.notifierObservateur();
     }
 
+    /**
+     * Enlever toute selection arc.
+     */
     public void enleverTouteSelectionArc(){
         this.arcSelectionnes.clear();
         this.notifierObservateur();
     }
 
+    /**
+     * Changement entree.
+     */
     public void changementEntree(){
         for (EtapeIG etapeSelectionne : this.etapeSelectionnes) {
             etapeSelectionne.setEstEntree();
@@ -230,6 +354,9 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         this.notifierObservateur();
     }
 
+    /**
+     * Changement sortie.
+     */
     public void changementSortie(){
         for (EtapeIG etapeSelectionne : this.etapeSelectionnes) {
             etapeSelectionne.setEstSortie();
@@ -237,12 +364,25 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         this.notifierObservateur();
     }
 
+    /**
+     * Set delai ecart temps.
+     *
+     * @param delai      the delai
+     * @param ecartTemps the ecart temps
+     * @param id         the id
+     */
     public void setDelaiEcartTemps(int delai, int ecartTemps, String id){
         this.etapes.get(id).setDelaiEcartTemps(delai, ecartTemps);
 
         this.notifierObservateur();
     }
 
+    /**
+     * Set jetons.
+     *
+     * @param nbJetons the nb jetons
+     * @param id       the id
+     */
     public void setJetons(int nbJetons, String id){
         this.etapes.get(id).setJeton(nbJetons);
 
@@ -254,61 +394,78 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         return this.etapes.values().iterator();
     }
 
+    /**
+     * Iterator arc iterator.
+     *
+     * @return the iterator
+     */
     public Iterator<ArcIG> iteratorArc() {
         return this.arc.iterator();
     }
 
+    /**
+     * Iterator etapes selectionnees iterator.
+     *
+     * @return the iterator
+     */
     public Iterator<EtapeIG> iteratorEtapesSelectionnees() {
         return this.etapeSelectionnes.iterator();
     }
 
+    /**
+     * Iterator arc selectionnees iterator.
+     *
+     * @return the iterator
+     */
     public Iterator<ArcIG> iteratorArcSelectionnees(){
         return this.arcSelectionnes.iterator();
     }
 
+    /**
+     * Iterator client iterator.
+     *
+     * @return the iterator
+     */
     public Iterator<Client> iteratorClient(){
         GestionnaireClients ge = null;
         try{
             Method methode = classeSimulation.getMethod("getGestClients()");
             ge = (GestionnaireClients) methode.invoke(simulation);
         }
-        catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
         return ge.iterator();
     }
 
+    /**
+     * Simuler.
+     *
+     * @throws MondeException the monde exception
+     */
     public void simuler() throws MondeException {
         if(this.verifierMondeIG()){
             this.simLance = true;
             Monde monde = this.creerMonde();
 
-            clPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
-
             try {
-                classeSimulation = clPerso.loadClass("twisk.simulation.Simulation");
-                simulation = classeSimulation.getDeclaredConstructor().newInstance();
-                Method methode = classeSimulation.getMethod("simuler", Monde.class);
-                Method setNbClients = classeSimulation.getMethod("setNbClients", int.class);
+                clPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
 
+                classeSimulation = clPerso.loadClass("twisk.simulation.Simulation");
+                simulation = classeSimulation.newInstance();
+
+                Method setNbClients = classeSimulation.getMethod("setNbClients", int.class);
                 setNbClients.invoke(simulation, 5);
+
+                Method methode = classeSimulation.getMethod("simuler", Monde.class);
                 methode.invoke(simulation, monde);
+
+                FabriqueNumero.getInstance().setNbMonde();
                 this.simLance = false;
 
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (ClassNotFoundException | InstantiationException | InvocationTargetException |
+                     NoSuchMethodException | IllegalAccessException e) {
                 e.printStackTrace();
             }
 
@@ -353,27 +510,35 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         Monde monde = new Monde();
         correspondance = new CorrespondanceEtapes();
 
-        for (EtapeIG eg: this){
-            System.out.println(eg);
-            Etape e = null;
-            if(eg.estUnGuichet()){
-                e = new Guichet(eg.identifiant);
-            }else if(eg.estUneActiviteRestreinte()){
-                e = new ActiviteRestreinte(eg.identifiant);
-            }else if(eg.estUneActivite()){
-                e = new Activite(eg.identifiant);
+        for (EtapeIG etapeIG : this){
+            Etape etape;
+
+            if (etapeIG.estUneActiviteRestreinte()){
+                etape = new ActiviteRestreinte(etapeIG.getIdentifiant(), etapeIG.getDelai(), etapeIG.getEcartTemps());
+            } else if (etapeIG.estUneActivite()) {
+                etape = new Activite(etapeIG.getIdentifiant(), etapeIG.getDelai(), etapeIG.getEcartTemps());
+            }else{      //Guichet
+                etape = new Guichet(etapeIG.getIdentifiant(), etapeIG.getNbJetons());
+            }
+            monde.ajouter(etape);
+
+            if(etapeIG.estEntree){
+                monde.aCommeEntree(etape);
+            }else if(etapeIG.estSortie){
+                monde.aCommeSortie(etape);
             }
 
-            if(eg.estEntree){
-                monde.aCommeEntree(e);
-            }
-            else if(eg.estSortie){
-                monde.aCommeSortie(e);
-            }
-
-            monde.ajouter(e);
-            correspondance.ajouter(eg, e);
+            correspondance.ajouter(etapeIG, etape);
         }
+
+        for(EtapeIG etapeIG : this){
+            Etape e;
+            if(etapeIG.estEntree){
+                e = correspondance.getEtape(etapeIG);
+                e.ajouterSuccesseur(etapeIG.creerMonde(correspondance));
+            }
+        }
+
         return monde;
     }
 
@@ -382,18 +547,38 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         this.notifierObservateur();
     }
 
+    /**
+     * Gets classe simulation.
+     *
+     * @return the classe simulation
+     */
     public Class<?> getClasseSimulation() {
         return classeSimulation;
     }
 
+    /**
+     * Is sim lance boolean.
+     *
+     * @return the boolean
+     */
     public boolean isSimLance() {
         return simLance;
     }
 
+    /**
+     * Gets etapes.
+     *
+     * @return the etapes
+     */
     public HashMap<String, EtapeIG> getEtapes() {
         return etapes;
     }
 
+    /**
+     * Gets correspondance.
+     *
+     * @return the correspondance
+     */
     public CorrespondanceEtapes getCorrespondance() {
         return correspondance;
     }

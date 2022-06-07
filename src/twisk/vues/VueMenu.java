@@ -1,20 +1,24 @@
 package twisk.vues;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import twisk.ecouteur.*;
 import twisk.mondeIG.MondeIG;
 
-import javax.swing.*;
-
+/**
+ * Class VueMenu.
+ */
 public class VueMenu extends MenuBar implements Observateur{
 
+    /**
+     * Instantiates a new Vue menu.
+     *
+     * @param mondeIG Le monde
+     */
     public VueMenu(MondeIG mondeIG) {
         mondeIG.ajouterObservateur(this);
 
@@ -28,6 +32,7 @@ public class VueMenu extends MenuBar implements Observateur{
 
         MenuItem suppSelection = new MenuItem("Supprimer la sélection");
         suppSelection.setOnAction(new EcouteurSupprimerSelection(mondeIG));
+        suppSelection.setAccelerator(new KeyCodeCombination(KeyCode.DELETE));
         MenuItem rennomerSelection = new MenuItem("Renommer la sélection");
         rennomerSelection.setOnAction(new EcouteurRenommerSelection(mondeIG));
         MenuItem effacerSelection = new MenuItem("Effacer la selection");

@@ -1,6 +1,12 @@
 package twisk.monde;
 
+/**
+ * The type Sas sortie.
+ */
 public class SasSortie extends Activite{
+    /**
+     * Instantiates a new Sas sortie.
+     */
     public SasSortie() {
         super("Sortie");
     }
@@ -11,7 +17,7 @@ public class SasSortie extends Activite{
 
     @Override
     public String toDefine() {
-        ligneDefine.append("#define " + this.nom + " " + this.cptEtape + "\n" );
+        ligneDefine.append("#define ").append(this.nom).append(" ").append(this.cptEtape).append("\n");
         return String.valueOf(ligneDefine);
     }
 }

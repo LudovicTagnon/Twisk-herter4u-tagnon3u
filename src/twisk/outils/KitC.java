@@ -5,7 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Class Kit c.
+ */
 public class KitC {
+    /**
+     * Creer environnement.
+     */
     public void creerEnvironnement(){
         try {
             // création du répertoire twisk sous /tmp. Ne déclenche pas d’erreur si le répertoire existe déjà
@@ -38,6 +44,11 @@ public class KitC {
         sourceFile.close();
     }
 
+    /**
+     * Creer fichier.
+     *
+     * @param codeC the code c
+     */
     public void creerFichier(String codeC){
         FileWriter flot;
         PrintWriter flotFiltre;
@@ -51,6 +62,9 @@ public class KitC {
         }
     }
 
+    /**
+     * Compiler.
+     */
     public void compiler(){
 
         Runtime runtime = Runtime.getRuntime();
@@ -72,6 +86,9 @@ public class KitC {
         }
     }
 
+    /**
+     * Construire la librairie.
+     */
     public void construireLaLibrairie(){
 
         Runtime runtime = Runtime.getRuntime();

@@ -17,8 +17,16 @@ import twisk.ecouteur.EcouteurBoutonGuichet;
 import twisk.ecouteur.EcouteurBoutonPlay;
 import twisk.mondeIG.MondeIG;
 
+/**
+ * Class Vue outils.
+ */
 public class VueOutils extends TilePane implements Observateur{
 
+    /**
+     * Instantiates a new VueOutils.
+     *
+     * @param monde Le monde
+     */
     public VueOutils(MondeIG monde){
         monde.ajouterObservateur(this);
 
