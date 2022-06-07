@@ -45,6 +45,8 @@ public class Activite extends Etape{
 
     @Override
     public String toDefine() {
+        System.out.println(this.nom + " -> " + gestSucc);
+        System.out.println();
         for(Etape suivant : gestSucc){
             ligneDefine.append("#define ").append(this.changementNom()).append(" ").append(this.cptEtape).append("\n");
             ligneDefine.append(suivant.toDefine());

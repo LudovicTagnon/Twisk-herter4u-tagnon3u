@@ -48,6 +48,7 @@ public class VueMenu extends MenuBar implements Observateur{
 
         MenuItem delaiEcartTemps = new MenuItem("Ajouter delai");
         delaiEcartTemps.setOnAction(new EcouteurDelai(mondeIG));
+        delaiEcartTemps.setAccelerator(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN));
         MenuItem jetons = new MenuItem("Ajouter Jetons");
         jetons.setOnAction(new EcouteurJetons(mondeIG));
 

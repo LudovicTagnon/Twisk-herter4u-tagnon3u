@@ -1,10 +1,13 @@
 package twisk;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
 import twisk.vues.VueMenu;
@@ -33,6 +36,7 @@ public class MainTwisk extends Application {
         vueOutils.setAlignment(Pos.TOP_CENTER);
 
         stage.setScene(new Scene(root, TailleComposants.getInstance().getTailleEcranX(), TailleComposants.getInstance().getTailleEcranY()));
+        stage.setOnCloseRequest(windowEvent -> Platform.exit());
         stage.show();
     }
 

@@ -87,7 +87,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
         Random r = new Random();
         this.posX = r.nextInt(TailleComposants.getInstance().getTailleEcranX() - larg);
-        this.posY = r.nextInt(TailleComposants.getInstance().getTailleEcranY() - haut);
+        this.posY = r.nextInt(TailleComposants.getInstance().getTailleEcranY() - 100 - haut);
 
         this.points = new ArrayList<>(4);
 
@@ -342,20 +342,11 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         }
     }
 
-    /**
-     * Creer monde etape.
-     *
-     * @param correspondance the correspondance
-     * @return the etape
-     */
-    public Etape creerMonde(CorrespondanceEtapes correspondance){
-        Etape etape = correspondance.getEtape(this);
-        if(!this.estSortie){
-            for (int i = 0; i < this.successeurs.size(); i++) {
-                etape.ajouterSuccesseur(this.successeurs.get(i).creerMonde(correspondance));
-            }
+    public boolean aUnSucc(){
+        if(this.successeurs.size() != 0 || this.successeurs != null){
+            return true;
         }
-        return etape;
+        return false;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      * @return the string
      */
     public String getNomEtape(int i){
-        return this.etapes.get(i).getNom();
+        return this.etapes.get(i-1).getNom();
     }
 
     /**

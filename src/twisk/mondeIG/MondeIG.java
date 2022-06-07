@@ -139,6 +139,7 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
             TailleComposants tailleComposants = TailleComposants.getInstance();
 
             ActiviteIG activiteIG = new ActiviteIG("Activite " + idAct.substring(5) , idAct, tailleComposants.getTailleXAct(), tailleComposants.getTailleYAct());
+            activiteIG.setDelaiEcartTemps(5, 2);
             etapes.put(idAct, activiteIG);
         }
         else if (type.equals("Guichet")) {
@@ -148,6 +149,7 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
             TailleComposants tailleComposants = TailleComposants.getInstance();
 
             GuichetIG guichetIG = new GuichetIG("Guichet " + idGui.substring(7) , idGui, tailleComposants.getTailleXGui(), tailleComposants.getTailleYGui());
+            guichetIG.setJeton(2);
             etapes.put(idGui, guichetIG);
         }
 
@@ -532,10 +534,10 @@ public class MondeIG extends SujetObserve implements Observateur,Iterable<EtapeI
         }
 
         for(EtapeIG etapeIG : this){
-            Etape e;
-            if(etapeIG.estEntree){
-                e = correspondance.getEtape(etapeIG);
-                e.ajouterSuccesseur(etapeIG.creerMonde(correspondance));
+            if(etapeIG.aUnSucc()){
+                for(EtapeIG succ : etapeIG.successeurs){
+                    this.correspondance.getEtape(etapeIG).ajouterSuccesseur(this.correspondance.getEtape(succ));
+                }
             }
         }
 

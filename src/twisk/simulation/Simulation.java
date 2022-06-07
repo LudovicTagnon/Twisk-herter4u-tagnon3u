@@ -107,10 +107,8 @@ public class Simulation extends SujetObserve {
                 } else if (i == monde.nbEtapes() - 1) {
                     System.out.print("Etape " + i + " (SasSortie): " + client[nbClient * i + i] + " client : ");
                 } else {
-                    System.out.print("Etape " + i + " (" + monde.getNomEtape(i-1) + "): " + client[nbClient * i + i] + " client : ");
+                    System.out.print("Etape " + i + " (" + monde.getNomEtape(i) + "): " + client[nbClient * i + i] + " client : ");
                 }
-
-
 
                 //Affichage des clients dans l'activité (ou guichet) i
                 int rang = 1;

@@ -120,7 +120,7 @@ public class Monde implements Iterable<Etape>{
                 sasEntree.toC() +
                 "}";
 
-        return String.valueOf(ligne);
+        return ligne;
     }
 
     @Override
